@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surfabéton — Spécialiste du dallage industriel en Normandie</title>
+  <meta name="description" content="Surfabéton conçoit et réalise vos sols industriels et dallages béton de grandes surfaces — usines, plateformes logistiques, entrepôts. QUALIBAT 2153, jusqu'à 155 m³/jour, chantiers jusqu'à 55 000 m². Normandie et national." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Surfabéton",
+    "description": "Spécialiste du dallage industriel et des sols béton grandes surfaces",
+    "telephone": "+33232560992",
+    "email": "surfabeton@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Pl. Caillemare",
+      "postalCode": "27310",
+      "addressLocality": "Saint-Ouen-de-Thouberville",
+      "addressCountry": "FR"
+    },
+    "openingHours": "Mo-Fr 08:00-18:00",
+    "areaServed": ["Normandie", "France"]
+  }
+  </script>
+</head>
+<body class="is-loading">
+
+  <!-- ============ PRÉLOADER « COFFRAGE » ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader-inner">
+      <p class="preloader-label mono">M² PRÉPARÉS</p>
+      <p class="preloader-count mono" id="preloader-count">0</p>
+      <div class="preloader-bar"><span id="preloader-bar-fill"></span></div>
+      <p class="preloader-sub mono">SURFABÉTON — COFFRAGE EN COURS</p>
+    </div>
+  </div>
+
+  <!-- ============ CANVAS 3D (fixe, derrière tout) ============ -->
+  <canvas id="gl" aria-hidden="true"></canvas>
+
+  <!-- ============ CANVAS SCROLL-VIDÉO (proto Approche B, ?scrollvid=1) ============ -->
+  <canvas id="scrollvid" aria-hidden="true"></canvas>
+
+  <!-- ============ BARRE UTILITAIRE + HEADER ============ -->
+  <div class="topbar mono">
+    <span class="topbar-item">surfabeton@gmail.com</span>
+    <span class="topbar-item topbar-hide-m">Pl. Caillemare, 27310 Saint-Ouen-de-Thouberville</span>
+    <span class="topbar-item topbar-accent">QUALIBAT 2153</span>
+    <span class="topbar-item">Rappel sous 24h</span>
+  </div>
+
+  <header class="header" id="header">
+    <a class="logo" href="#hero" aria-label="Surfabéton — retour en haut">
+      <span class="logo-mark" aria-hidden="true"></span>
+      SURFA<b>BÉTON</b>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#expertises">Expertises</a>
+      <a href="#types">Dallages</a>
+      <a href="#realisations">Réalisations</a>
+      <a href="#methode">Méthode</a>
+    </nav>
+    <div class="header-cta">
+      <a class="header-tel mono" href="tel:+33232560992">02 32 56 09 92</a>
+      <a class="btn btn-primary btn--plain" href="#devis">Obtenir un devis</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ PHASE 1 — HERO « BÉTON FRAIS » ============ -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div class="segmented reveal-eyebrow" role="group" aria-label="Type de prestation">
+          <button type="button" data-offer="industriel" aria-pressed="true">Sols industriels</button>
+          <button type="button" data-offer="decoratif" aria-pressed="false">Béton décoratif</button>
+        </div>
+        <p class="hero-eyebrow mono reveal-eyebrow" id="hero-eyebrow">NORMANDIE + NATIONAL&nbsp;&nbsp;·&nbsp;&nbsp;+25 ANS&nbsp;&nbsp;·&nbsp;&nbsp;QUALIBAT 2153</p>
+        <h1 class="hero-title split-lines" id="hero-title">
+          <span class="line"><span class="line-inner">Le dallage</span></span>
+          <span class="line"><span class="line-inner">industriel, à la</span></span>
+          <span class="line"><span class="line-inner">hauteur de vos</span></span>
+          <span class="line"><span class="line-inner accent">surfaces.</span></span>
+        </h1>
+        <p class="hero-lead reveal-up" id="hero-lead">
+          Surfabéton conçoit et réalise vos sols industriels et dallages béton de
+          grandes surfaces — usines, plateformes logistiques, entrepôts.
+          Parc matériel propre, équipe qualifiée, un interlocuteur unique de
+          l'étude à la réception.
+        </p>
+        <div class="hero-ctas reveal-up">
+          <a class="btn btn-primary" href="#devis">Obtenir un devis</a>
+          <a class="btn btn-ghost" href="#realisations">Voir nos chantiers</a>
+        </div>
+      </div>
+      <aside class="hero-fiche mono reveal-fiche" aria-label="Fiche technique">
+        <p class="fiche-row"><span class="fiche-k">PLUS GRAND CHANTIER</span><span class="fiche-v">55 000 m²</span></p>
+        <p class="fiche-row"><span class="fiche-k">CAPACITÉ</span><span class="fiche-v">155 m³ / jour</span></p>
+        <p class="fiche-row"><span class="fiche-k">ASSISTANCE</span><span class="fiche-v">Rappel sous 24h</span></p>
+      </aside>
+      <p class="hero-scroll mono" aria-hidden="true">SCROLLER — LA DALLE SE COULE<span class="hero-scroll-line"></span></p>
+    </section>
+
+    <!-- ============ PHASE 2 — CHIFFRES « RÈGLE LASER » ============ -->
+    <section class="stats" id="stats" aria-labelledby="stats-title">
+      <div class="section-head">
+        <p class="eyebrow mono">— Chiffres clés</p>
+        <h2 class="section-title" id="stats-title">La preuve par la planéité.</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat">
+          <p class="stat-value mono"><span class="count" data-count="55000" data-format="fr">0</span><span class="stat-unit">m²</span></p>
+          <p class="stat-label">Plus grand chantier réalisé — usine Siemens Gamesa, Le Havre</p>
+        </div>
+        <div class="stat">
+          <p class="stat-value mono"><span class="count" data-count="155">0</span><span class="stat-unit">m³/jour</span></p>
+          <p class="stat-label">De béton mis en œuvre — 311 m³ coulés en 2 jours</p>
+        </div>
+        <div class="stat">
+          <p class="stat-value mono">+<span class="count" data-count="25">0</span><span class="stat-unit">ans</span></p>
+          <p class="stat-label">D'expérience métier au service de vos surfaces</p>
+        </div>
+        <div class="stat stat-badge">
+          <p class="stat-value mono">QUALIBAT<br />2153</p>
+          <p class="stat-label">Dallage à usage industriel — technicité supérieure</p>
+        </div>
+      </div>
+      <div class="trust mono">
+        <span class="trust-label">ILS NOUS FONT CONFIANCE</span>
+        <span class="trust-names">SIEMENS GAMESA&nbsp;&nbsp;·&nbsp;&nbsp;EIFFAGE&nbsp;&nbsp;·&nbsp;&nbsp;LA POSTE&nbsp;&nbsp;·&nbsp;&nbsp;GCA LOGISTICS</span>
+      </div>
+    </section>
+
+    <!-- ============ PHASE 3 — EXPERTISES « HÉLICOPTÈRE » ============ -->
+    <section class="expertises" id="expertises" aria-labelledby="expertises-title">
+      <div class="section-head">
+        <p class="eyebrow mono">— Cœur de métier</p>
+        <h2 class="section-title" id="expertises-title">Le sol industriel,<br />de l'étude à la réception.</h2>
+      </div>
+      <div class="cards">
+        <article class="card card-accent">
+          <p class="card-index mono">01 — PHARE</p>
+          <h3 class="card-title">Sols industriels en béton</h3>
+          <p class="card-text">Grandes surfaces, charges lourdes, trafic chariots intensif. Dallages plans et durables pour usines, entrepôts et plateformes.</p>
+          <span class="card-arrow" aria-hidden="true">→</span>
+        </article>
+        <article class="card card-dark">
+          <p class="card-index mono">02</p>
+          <h3 class="card-title">Dallage béton</h3>
+          <p class="card-text">Traditionnel, renforcé fibres métalliques, sans joints sciés ou béton armé — la technique adaptée à chaque usage.</p>
+          <span class="card-arrow" aria-hidden="true">→</span>
+        </article>
+        <article class="card">
+          <p class="card-index mono">03</p>
+          <h3 class="card-title">Traitement de surface</h3>
+          <p class="card-text">Durcisseur incorporé et polissage : résistance à l'abrasion et finition maîtrisée pour les sols sollicités.</p>
+          <span class="card-arrow" aria-hidden="true">→</span>
+        </article>
+        <article class="card">
+          <p class="card-index mono">04</p>
+          <h3 class="card-title">Renforcement de planchers</h3>
+          <p class="card-text">Augmentation de la capacité portante de vos planchers existants pour de nouveaux usages industriels.</p>
+          <span class="card-arrow" aria-hidden="true">→</span>
+        </article>
+        <article class="card">
+          <p class="card-index mono">05</p>
+          <h3 class="card-title">Réparations de dallage</h3>
+          <p class="card-text">Diagnostic et remise en service de sols industriels existants : fissures, joints, reprises de surface.</p>
+          <span class="card-arrow" aria-hidden="true">→</span>
+        </article>
+      </div>
+
+      <div class="moyens">
+        <div class="moyens-head">
+          <p class="eyebrow mono">— Moyens techniques</p>
+          <h3 class="moyens-title">Un parc matériel qui nous appartient.</h3>
+          <p class="moyens-lead">La capacité d'un industriel, la réactivité d'un régional. Autonomie totale sur chantier.</p>
+        </div>
+        <ul class="moyens-list">
+          <li><span class="mono moyens-k">POMPAGE</span>Pompe à béton fournie pour les dallages lissés, règles vibrantes, lissardes, aiguilles vibrantes</li>
+          <li><span class="mono moyens-k">FINITION</span>Taloches thermiques mécaniques — hélicoptères simples et bi-pales pour grandes surfaces</li>
+          <li><span class="mono moyens-k">PRÉCISION</span>Niveaux laser rotatifs pour le réglage des piges et une planéité parfaite</li>
+          <li><span class="mono moyens-k">SCIAGE</span>Scies à sol thermiques de forte puissance — 13 CV et 14 CV</li>
+          <li><span class="mono moyens-k">LOGISTIQUE</span>Camions bras HIAB, chariots télescopiques, flotte d'utilitaires</li>
+          <li><span class="mono moyens-k">ÉQUIPE</span>10 à 13 collaborateurs, maçons polisseurs jusqu'à 30 ans d'expérience métier</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ PHASE 4 — TYPES « JOINTS SCIÉS » ============ -->
+    <section class="types" id="types" aria-labelledby="types-title">
+      <div class="section-head">
+        <p class="eyebrow mono">— Fiche technique</p>
+        <h2 class="section-title" id="types-title">Six types de dallage.<br />Une seule exigence.</h2>
+      </div>
+      <ul class="types-grid">
+        <li class="type">
+          <p class="type-index mono">T.01</p>
+          <h3 class="type-title">Traditionnel</h3>
+          <p class="type-text">Le dallage de référence, dimensionné selon vos charges et votre trafic.</p>
+        </li>
+        <li class="type">
+          <p class="type-index mono">T.02</p>
+          <h3 class="type-title">Fibres métalliques</h3>
+          <p class="type-text">Renforcement homogène dans la masse, idéal pour charges dynamiques.</p>
+        </li>
+        <li class="type">
+          <p class="type-index mono">T.03</p>
+          <h3 class="type-title">Sans joints sciés</h3>
+          <p class="type-text">Grandes trames sans découpes : moins d'entretien, roulage parfait.</p>
+        </li>
+        <li class="type">
+          <p class="type-index mono">T.04</p>
+          <h3 class="type-title">Béton armé</h3>
+          <p class="type-text">Treillis ou armatures pour les sollicitations les plus sévères.</p>
+        </li>
+        <li class="type">
+          <p class="type-index mono">T.05</p>
+          <h3 class="type-title">Béton balayé</h3>
+          <p class="type-text">Finition antidérapante pour extérieurs, quais et rampes d'accès.</p>
+        </li>
+        <li class="type">
+          <p class="type-index mono">T.06</p>
+          <h3 class="type-title">Lissé + durcisseur quartz</h3>
+          <p class="type-text">Surface fermée, résistante à l'abrasion, finition hélicoptère.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ PHASE 5 — RÉALISATIONS « L'ENTREPÔT S'ÉLÈVE » ============ -->
+    <section class="realisations" id="realisations" aria-labelledby="realisations-title">
+      <div class="section-head">
+        <p class="eyebrow mono">— Réalisations</p>
+        <h2 class="section-title" id="realisations-title">Des surfaces qui<br />parlent en m².</h2>
+      </div>
+      <ul class="projects">
+        <li class="project">
+          <span class="chip project-chip is-industriel">Industriel / Usine</span>
+          <div class="project-info">
+            <h3 class="project-name">Siemens Gamesa</h3>
+            <p class="project-meta mono">LE HAVRE</p>
+          </div>
+          <p class="project-surface mono"><span class="count" data-count="55000" data-format="fr">0</span> m²</p>
+          <div class="project-bar"><span style="--w: 1"></span></div>
+        </li>
+        <li class="project">
+          <span class="chip project-chip is-industriel">Industriel</span>
+          <div class="project-info">
+            <h3 class="project-name">Grand Quevilly</h3>
+            <p class="project-meta mono">GRAND QUEVILLY</p>
+          </div>
+          <p class="project-surface mono"><span class="count" data-count="27000" data-format="fr">0</span> m²</p>
+          <div class="project-bar"><span style="--w: 0.49"></span></div>
+        </li>
+        <li class="project">
+          <span class="chip project-chip">Logistique</span>
+          <div class="project-info">
+            <h3 class="project-name">GCA Logistics</h3>
+            <p class="project-meta mono">LILLEBONNE</p>
+          </div>
+          <p class="project-surface mono"><span class="count" data-count="21000" data-format="fr">0</span> m²</p>
+          <div class="project-bar"><span style="--w: 0.38"></span></div>
+        </li>
+        <li class="project">
+          <span class="chip project-chip">Stockage</span>
+          <div class="project-info">
+            <h3 class="project-name">Fauville-en-Caux</h3>
+            <p class="project-meta mono">FAUVILLE-EN-CAUX</p>
+          </div>
+          <p class="project-surface mono"><span class="count" data-count="12000" data-format="fr">0</span> m²</p>
+          <div class="project-bar"><span style="--w: 0.22"></span></div>
+        </li>
+        <li class="project">
+          <span class="chip project-chip">Logistique</span>
+          <div class="project-info">
+            <h3 class="project-name">Longroy</h3>
+            <p class="project-meta mono">LONGROY</p>
+          </div>
+          <p class="project-surface mono"><span class="count" data-count="8000" data-format="fr">0</span> m²</p>
+          <div class="project-bar"><span style="--w: 0.145"></span></div>
+        </li>
+        <li class="project">
+          <span class="chip project-chip">Tertiaire / Logistique</span>
+          <div class="project-info">
+            <h3 class="project-name">La Poste</h3>
+            <p class="project-meta mono">ÉVREUX</p>
+          </div>
+          <p class="project-surface mono"><span class="count" data-count="4500" data-format="fr">0</span> m²</p>
+          <div class="project-bar"><span style="--w: 0.082"></span></div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============ CARROUSEL CHANTIERS (cards photo) ============ -->
+    <section class="chantiers" id="chantiers" aria-labelledby="chantiers-title">
+      <div class="chantiers-head">
+        <div class="section-head" style="padding: 0">
+          <p class="eyebrow mono">— En images</p>
+          <h2 class="section-title" id="chantiers-title">Nos chantiers récents</h2>
+        </div>
+        <div class="filters" role="group" aria-label="Filtrer les chantiers">
+          <button class="filter" data-filter="all" aria-pressed="true">Tous</button>
+          <button class="filter" data-filter="industriel" aria-pressed="false">Industriel</button>
+          <button class="filter" data-filter="logistique" aria-pressed="false">Logistique</button>
+          <button class="filter" data-filter="decoratif" aria-pressed="false">Décoratif</button>
+        </div>
+      </div>
+
+      <div class="pcarousel" id="pcarousel">
+        <article class="pcard" data-cat="industriel">
+          <div class="pcard-media">
+            <span class="chip pcard-chip is-industriel">Industriel / Usine</span>
+            <span class="pcard-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="pcard-body">
+            <div><p class="pcard-name">Siemens Gamesa</p><p class="pcard-loc">Le Havre</p></div>
+            <p class="pcard-surface">55 000 m²</p>
+          </div>
+        </article>
+        <article class="pcard" data-cat="industriel">
+          <div class="pcard-media">
+            <span class="chip pcard-chip is-industriel">Industriel</span>
+            <span class="pcard-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="pcard-body">
+            <div><p class="pcard-name">Grand Quevilly</p><p class="pcard-loc">Grand Quevilly</p></div>
+            <p class="pcard-surface">27 000 m²</p>
+          </div>
+        </article>
+        <article class="pcard" data-cat="logistique">
+          <div class="pcard-media">
+            <span class="chip pcard-chip">Logistique</span>
+            <span class="pcard-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="pcard-body">
+            <div><p class="pcard-name">GCA Logistics</p><p class="pcard-loc">Lillebonne</p></div>
+            <p class="pcard-surface">21 000 m²</p>
+          </div>
+        </article>
+        <article class="pcard" data-cat="logistique">
+          <div class="pcard-media">
+            <span class="chip pcard-chip">Stockage</span>
+            <span class="pcard-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="pcard-body">
+            <div><p class="pcard-name">Fauville-en-Caux</p><p class="pcard-loc">Fauville-en-Caux</p></div>
+            <p class="pcard-surface">12 000 m²</p>
+          </div>
+        </article>
+        <article class="pcard" data-cat="logistique">
+          <div class="pcard-media">
+            <span class="chip pcard-chip">Logistique</span>
+            <span class="pcard-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="pcard-body">
+            <div><p class="pcard-name">Longroy</p><p class="pcard-loc">Longroy</p></div>
+            <p class="pcard-surface">8 000 m²</p>
+          </div>
+        </article>
+        <article class="pcard" data-cat="decoratif">
+          <div class="pcard-media">
+            <span class="chip pcard-chip">Béton désactivé</span>
+            <span class="pcard-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="pcard-body">
+            <div><p class="pcard-name">CLM Habitat Jean-Moulin</p><p class="pcard-loc">Caen</p></div>
+            <p class="pcard-surface">Décoratif</p>
+          </div>
+        </article>
+        <article class="pcard" data-cat="decoratif">
+          <div class="pcard-media">
+            <span class="chip pcard-chip">Béton drainant</span>
+            <span class="pcard-arrow" aria-hidden="true">→</span>
+          </div>
+          <div class="pcard-body">
+            <div><p class="pcard-name">Rue Jean-Maréchal</p><p class="pcard-loc">Bicolore &amp; drainant</p></div>
+            <p class="pcard-surface">Décoratif</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="pcarousel-ctrl">
+        <div class="pc-track"><span id="pc-progress"></span></div>
+        <div class="pc-btns">
+          <button class="pc-btn" id="pc-prev" aria-label="Chantier précédent">←</button>
+          <button class="pc-btn" id="pc-next" aria-label="Chantier suivant">→</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PHASE 6 — MÉTHODE / TÉMOIGNAGE / DEVIS « RÉCEPTION » ============ -->
+    <section class="final" id="final">
+
+      <div class="methode" id="methode" aria-labelledby="methode-title">
+        <div class="section-head">
+          <p class="eyebrow mono">— Étapes d'un projet</p>
+          <h2 class="section-title" id="methode-title">Un chantier cadré,<br />du rendez-vous à la réception.</h2>
+        </div>
+        <div class="steps">
+          <div class="steps-line" aria-hidden="true"><span id="steps-line-fill"></span></div>
+          <div class="step">
+            <p class="step-index mono">01</p>
+            <h3 class="step-title">Rencontre</h3>
+            <p class="step-text">Nous échangeons autour de votre projet, vos contraintes d'exploitation et vos délais.</p>
+          </div>
+          <div class="step">
+            <p class="step-index mono">02</p>
+            <h3 class="step-title">Visite technique</h3>
+            <p class="step-text">Étude des données du chantier sur site : support, charges, trafic, tolérances de planéité.</p>
+          </div>
+          <div class="step">
+            <p class="step-index mono">03</p>
+            <h3 class="step-title">Devis détaillé</h3>
+            <p class="step-text">Un chiffrage précis et transparent pour démarrer le chantier en toute confiance.</p>
+          </div>
+          <div class="step">
+            <p class="step-index mono">04</p>
+            <h3 class="step-title">Chantier suivi</h3>
+            <p class="step-text">Un conducteur de travaux dédié suit l'exécution jusqu'à la réception de l'ouvrage.</p>
+          </div>
+        </div>
+      </div>
+
+      <figure class="temoignage reveal-up">
+        <blockquote>
+          «&nbsp;Nous tenons à remercier Surfabéton pour son travail
+          remarquable sur ce projet récemment achevé. Planéité, délais,
+          interlocuteur unique&nbsp;: l'exécution a été à la hauteur.&nbsp;»
+        </blockquote>
+        <figcaption class="mono">OLIVIER — EIFFAGE</figcaption>
+      </figure>
+
+      <aside class="autres reveal-up" aria-label="Autres prestations">
+        <p class="autres-label mono">— SURFABÉTON RÉALISE AUSSI</p>
+        <p class="autres-text">Bétons décoratifs (désactivé, quartz, bicolore, taloché) &amp; béton drainant, pour vos aménagements extérieurs.</p>
+      </aside>
+
+      <div class="specialist-wrap reveal-up">
+        <div class="specialist">
+          <p class="specialist-eyebrow">— Un projet en tête&nbsp;?</p>
+          <h2 class="specialist-title">Parlez à un spécialiste</h2>
+          <p class="specialist-lead">
+            Exposez vos besoins — surface, usage du sol, charges, délais — à nos
+            conducteurs de travaux. Étude technique et chiffrage adaptés à votre chantier.
+          </p>
+          <div class="specialist-actions">
+            <a class="btn btn-onaccent" href="#devis">Demander une étude</a>
+            <a class="btn btn-outline-w btn--plain" href="tel:+33232560992">
+              <span aria-hidden="true">☎</span>&nbsp;&nbsp;02 32 56 09 92
+            </a>
+          </div>
+          <p class="specialist-note">Une question&nbsp;? <a href="mailto:surfabeton@gmail.com">Écrivez-nous</a> — rappel sous 24h.</p>
+        </div>
+      </div>
+
+      <div class="devis" id="devis" aria-labelledby="devis-title">
+        <div class="devis-intro">
+          <p class="eyebrow mono">— Contact</p>
+          <h2 class="section-title" id="devis-title">Parlons de<br />vos surfaces.</h2>
+          <ul class="devis-coords">
+            <li><span class="mono devis-k">TÉL.</span><a href="tel:+33232560992">02 32 56 09 92</a></li>
+            <li><span class="mono devis-k">EMAIL</span><a href="mailto:surfabeton@gmail.com">surfabeton@gmail.com</a></li>
+            <li><span class="mono devis-k">ADRESSE</span>Pl. Caillemare, 27310 Saint-Ouen-de-Thouberville</li>
+            <li><span class="mono devis-k">HORAIRES</span>Lundi–Vendredi, 08h–18h</li>
+            <li><span class="mono devis-k">ENGAGEMENT</span>Assistance technique et rappel sous 24h</li>
+          </ul>
+        </div>
+        <form class="devis-form" id="devis-form" aria-label="Demande de devis">
+          <div class="form-row">
+            <label class="field">
+              <span class="field-label mono">PRÉNOM</span>
+              <input type="text" name="prenom" autocomplete="given-name" required />
+            </label>
+            <label class="field">
+              <span class="field-label mono">NOM</span>
+              <input type="text" name="nom" autocomplete="family-name" required />
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="field">
+              <span class="field-label mono">EMAIL</span>
+              <input type="email" name="email" autocomplete="email" required />
+            </label>
+            <label class="field">
+              <span class="field-label mono">TÉLÉPHONE</span>
+              <input type="tel" name="telephone" autocomplete="tel" />
+            </label>
+          </div>
+          <label class="field">
+            <span class="field-label mono">SUJET</span>
+            <select name="sujet" required>
+              <option value="" selected disabled>Comment pouvons-nous vous aider&nbsp;?</option>
+              <option value="Sols industriels">Sols industriels</option>
+              <option value="Dallage">Dallage béton</option>
+              <option value="Bétons décoratifs">Bétons décoratifs</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field-label mono">MESSAGE</span>
+            <textarea name="message" rows="5" placeholder="Surface estimée, usage du sol, localisation, délais…"></textarea>
+          </label>
+          <button class="btn btn-primary btn-submit" type="submit">Demande de devis</button>
+          <p class="form-note mono" id="form-note" role="status"></p>
+        </form>
+      </div>
+
+      <footer class="footer">
+        <div class="footer-main">
+          <p class="footer-logo">SURFA<b>BÉTON</b></p>
+          <p class="footer-pitch">Vente et réalisation de dallages béton industriels, sols décoratifs et travaux préparatoires. Normandie et national.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <p class="footer-col-title mono">EXPERTISES</p>
+            <a href="#expertises">Sols industriels</a>
+            <a href="#types">Dallage béton</a>
+            <a href="#expertises">Traitement de surface</a>
+            <a href="#expertises">Réparations</a>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title mono">ENTREPRISE</p>
+            <a href="#stats">Chiffres clés</a>
+            <a href="#realisations">Réalisations</a>
+            <a href="#methode">Méthode</a>
+            <a href="#devis">Contact</a>
+          </div>
+        </div>
+        <div class="footer-bottom mono">
+          <span>© <span id="footer-year">2026</span> SURFABÉTON — SAS AU CAPITAL DE 120 000 €</span>
+          <span>QUALIBAT 2153 — DALLAGE À USAGE INDUSTRIEL</span>
+        </div>
+      </footer>
+
+    </section>
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

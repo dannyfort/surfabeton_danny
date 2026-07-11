@@ -1,0 +1,53 @@
+/* ============================================================
+   SURFABÉTON — Design tokens (DA « dossier technique béton »)
+   ============================================================ */
+:root {
+  /* Palette pigments béton */
+  --c-bg: #e7e4de;          /* béton clair */
+  --c-panel: #f1efea;       /* béton papier */
+  --c-ink: #17181b;         /* coffrage / encre */
+  --c-steel: #3c4145;       /* acier */
+  --c-accent: #ce5423;      /* oxyde — accent unique */
+  --c-accent-hover: #b8481c;
+  --c-line: #cfcbc2;        /* filets / grille technique */
+  --c-ink-soft: #43454b;
+  --c-bg-dark: #141518;
+  --c-line-dark: #2c2e33;
+  --c-text-on-dark: #dcd9d2;
+
+  /* Typographie */
+  --font-display: 'Fraunces', 'Times New Roman', Georgia, serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-mono: 'Spline Sans Mono', ui-monospace, monospace;
+
+  --text-hero: clamp(2.1rem, 0.9rem + 5.4vw, 5.4rem);
+  --text-h2: clamp(1.5rem, 0.9rem + 2.5vw, 2.7rem);
+  --text-h3: clamp(1rem, 0.95rem + 0.45vw, 1.2rem);
+  --text-base: clamp(0.9rem, 0.86rem + 0.2vw, 1rem);
+  --text-small: 0.8rem;
+  --text-mono-s: 0.68rem;
+  --text-stat: clamp(2rem, 0.9rem + 3.4vw, 3.5rem);
+
+  /* Espacement */
+  --space-section: clamp(5rem, 3rem + 8vw, 12rem);
+  --space-gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --content-max: 82rem;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-normal: 350ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Rayons (style card SaaS) */
+  --radius-card: 22px;
+  --radius-media: 18px;
+  --radius-pill: 999px;
+  --radius-chip: 999px;
+
+  /* Coupe diagonale signature */
+  --slash: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+
+  /* Divers */
+  --header-h: 4.5rem;
+  --topbar-h: 2.2rem;
+}

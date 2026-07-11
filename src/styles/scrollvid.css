@@ -1,0 +1,282 @@
+/* ============================================================
+   SURFABÉTON — Mode scroll-vidéo · DOSSIER TECHNIQUE
+   Direction : Swiss / International × industriel.
+   Panneaux plats à arêtes vives sur le scroll-vidéo, filets
+   techniques, typo grotesque + mono, alternance clair/sombre,
+   un seul accent oxyde. Scopé à body.scrollvid (le mode 3D
+   n'est pas touché). Chargé par scrollVideo.js.
+   ============================================================ */
+
+body.scrollvid {
+  /* Échelle resserrée : tout était trop gros. On surcharge les tokens
+     de typo/espacement uniquement en mode scrollvid (le 3D garde les siens). */
+  --text-hero: clamp(2rem, 1rem + 3.2vw, 3.9rem);
+  --text-h2: clamp(1.45rem, 1rem + 1.5vw, 2.2rem);
+  --text-h3: clamp(1rem, 0.95rem + 0.35vw, 1.15rem);
+  --text-base: clamp(0.9rem, 0.86rem + 0.2vw, 0.98rem);
+  --text-stat: clamp(1.8rem, 1rem + 2.2vw, 2.9rem);
+  --space-section: clamp(3rem, 2rem + 3.6vw, 6rem);
+
+  --sv-pad: clamp(1.05rem, 1.5vw, 1.7rem);
+  --sv-hair: 1px;
+  --sv-max: 46rem;
+  --sv-light: #efece6;
+  --sv-light-2: #e4e0d8;
+  --sv-dark: #16171a;
+  --sv-dark-2: #1e2024;
+  --sv-line-l: #cbc6bc;
+  --sv-line-d: #33363c;
+}
+
+/* ---------- Reset "Swiss" : arêtes vives, à plat ---------- */
+body.scrollvid .hero-inner,
+body.scrollvid .section-head,
+body.scrollvid .stats-grid,
+body.scrollvid .stat,
+body.scrollvid .trust,
+body.scrollvid .moyens,
+body.scrollvid .card,
+body.scrollvid .type,
+body.scrollvid .projects,
+body.scrollvid .project,
+body.scrollvid .steps,
+body.scrollvid .temoignage,
+body.scrollvid .autres,
+body.scrollvid .specialist,
+body.scrollvid .devis-intro,
+body.scrollvid .devis-form,
+body.scrollvid .btn,
+body.scrollvid .chip,
+body.scrollvid .segmented,
+body.scrollvid .pcard,
+body.scrollvid input,
+body.scrollvid select,
+body.scrollvid textarea {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ---------- Typo : grotesque lourde pour les titres ---------- */
+body.scrollvid .hero-title,
+body.scrollvid .section-title,
+body.scrollvid .moyens-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+}
+body.scrollvid .hero-title .accent,
+body.scrollvid .section-title .accent { font-style: normal; }
+
+/* ============================================================
+   PANNEAUX — deux surfaces, alternance clair / sombre
+   ============================================================ */
+
+/* Surface CLAIRE */
+body.scrollvid #stats .section-head,
+body.scrollvid #stats .stats-grid,
+body.scrollvid #stats .trust,
+body.scrollvid #types .section-head,
+body.scrollvid #types .types-grid,
+body.scrollvid #methode .section-head,
+body.scrollvid #methode .steps,
+body.scrollvid .temoignage,
+body.scrollvid .autres,
+body.scrollvid #devis .devis-intro,
+body.scrollvid #devis .devis-form {
+  background: var(--sv-light);
+  border: var(--sv-hair) solid var(--sv-line-l);
+  color: var(--c-ink);
+  padding: var(--sv-pad);
+}
+
+/* Surface SOMBRE */
+body.scrollvid .hero-inner,
+body.scrollvid #expertises .section-head,
+body.scrollvid #expertises .moyens,
+body.scrollvid #realisations .section-head,
+body.scrollvid #realisations .projects {
+  background: var(--sv-dark);
+  border: var(--sv-hair) solid var(--sv-line-d);
+  color: var(--c-bg);
+  padding: var(--sv-pad);
+}
+body.scrollvid .hero-inner .hero-lead,
+body.scrollvid #expertises .moyens-lead { color: #b9b4aa; }
+body.scrollvid #realisations .project-meta,
+body.scrollvid #realisations .project-name { color: var(--c-bg); }
+
+/* ---------- Marqueur de figure (compteur CSS, mono) ---------- */
+body.scrollvid #main { counter-reset: sv-fig; }
+body.scrollvid section { counter-increment: sv-fig; }
+body.scrollvid .section-head { position: relative; }
+/* Réserve la place du marqueur « FIG. » — spécificité id pour battre
+   la règle panneau (#section .section-head) qui pose le padding. */
+body.scrollvid #stats .section-head,
+body.scrollvid #expertises .section-head,
+body.scrollvid #types .section-head,
+body.scrollvid #realisations .section-head,
+body.scrollvid #methode .section-head {
+  padding-top: calc(var(--sv-pad) + 1.7rem);
+}
+body.scrollvid .section-head::before {
+  content: "FIG. 0" counter(sv-fig);
+  position: absolute;
+  top: var(--sv-pad);
+  left: var(--sv-pad);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--c-accent);
+}
+/* filet technique sous le marqueur */
+body.scrollvid .section-head::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--sv-pad) + 1rem);
+  left: var(--sv-pad);
+  right: var(--sv-pad);
+  height: var(--sv-hair);
+  background: currentColor;
+  opacity: 0.18;
+}
+
+/* ---------- Grille : panneaux calés à gauche, vidéo à droite ---------- */
+body.scrollvid .section-head { max-width: 44rem; }
+body.scrollvid #stats .trust { max-width: 44rem; margin-top: 0.9rem; }
+body.scrollvid #stats .section-head,
+body.scrollvid #expertises .section-head,
+body.scrollvid #types .section-head,
+body.scrollvid #realisations .section-head,
+body.scrollvid #methode .section-head { margin-bottom: 1.1rem; }
+
+/* ============================================================
+   HERO — ouverture "dossier", overlay sombre à gauche
+   ============================================================ */
+body.scrollvid .hero-inner {
+  max-width: var(--sv-max);
+  position: relative;
+}
+body.scrollvid .hero-inner::before {
+  content: "DOSSIER 2153 · DALLAGE INDUSTRIEL · N 49°23'";
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--c-accent);
+  padding-bottom: 0.8rem;
+  margin-bottom: 1.4rem;
+  border-bottom: var(--sv-hair) solid var(--sv-line-d);
+}
+body.scrollvid .hero-eyebrow { color: #8b867c; }
+body.scrollvid .hero-fiche {
+  background: var(--sv-dark-2);
+  border: var(--sv-hair) solid var(--sv-line-d);
+  border-radius: 0;
+  backdrop-filter: none;
+}
+body.scrollvid .hero-fiche .fiche-k { color: #8b867c; }
+body.scrollvid .hero-fiche .fiche-row + .fiche-row { border-color: var(--sv-line-d); }
+body.scrollvid .hero-scroll { color: #8b867c; }
+
+/* ============================================================
+   COMPOSANTS — mis à plat, façon planche technique
+   ============================================================ */
+
+/* Toggle segmenté */
+body.scrollvid .segmented {
+  border: var(--sv-hair) solid var(--sv-line-d);
+  background: transparent;
+  padding: 0;
+}
+body.scrollvid .segmented button { border-radius: 0; }
+
+/* Boutons rectangulaires */
+body.scrollvid .btn { border-radius: 0; border-width: var(--sv-hair); }
+body.scrollvid .btn::after { border-radius: 0; }
+
+/* Chips rectangulaires + mono */
+body.scrollvid .chip {
+  border-radius: 0;
+  border: var(--sv-hair) solid currentColor;
+  background: transparent;
+}
+
+/* Cartes expertises : à plat, filet, index mono */
+body.scrollvid #expertises .cards { gap: var(--sv-hair); background: var(--sv-line-d); }
+body.scrollvid .card {
+  border-radius: 0;
+  border: none;
+}
+body.scrollvid .card::before { display: none; }
+body.scrollvid .card-index { border-radius: 0; }
+
+/* Types : grille serrée à filets */
+body.scrollvid #types .types-grid { gap: var(--sv-hair); background: var(--sv-line-l); padding: var(--sv-hair); }
+body.scrollvid .type { border-radius: 0; border: none; background: var(--sv-light); }
+body.scrollvid .type:hover { background: var(--sv-light-2); }
+
+/* Stats : cellules à filets, chiffres tabulaires */
+body.scrollvid .stat-value { font-variant-numeric: tabular-nums; }
+body.scrollvid #stats .stats-grid { gap: 0; }
+body.scrollvid #stats .stat { border-color: var(--sv-line-l); }
+
+/* Réalisations : barres de m² pleines (oxyde) */
+body.scrollvid #realisations .project { border-color: var(--sv-line-d); }
+body.scrollvid #realisations .project-surface { color: var(--c-accent); font-variant-numeric: tabular-nums; }
+
+/* Champs de formulaire à plat */
+body.scrollvid input,
+body.scrollvid select,
+body.scrollvid textarea {
+  border-radius: 0;
+  border: var(--sv-hair) solid var(--sv-line-l);
+  background: #fff;
+}
+
+/* ============================================================
+   HUD technique fixe (injecté par scrollVideo.js)
+   ============================================================ */
+.sv-hud {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  color: color-mix(in srgb, var(--c-ink) 70%, transparent);
+  mix-blend-mode: difference;
+}
+.sv-hud .sv-hud-tl { position: absolute; top: calc(var(--topbar-h) + var(--header-h) + 1rem); left: 1.1rem; }
+.sv-hud .sv-hud-tr { position: absolute; top: calc(var(--topbar-h) + var(--header-h) + 1rem); right: 1.1rem; text-align: right; }
+.sv-hud .sv-hud-bl { position: absolute; bottom: 1.1rem; left: 1.1rem; }
+.sv-hud-progress {
+  position: absolute;
+  bottom: 1.1rem;
+  right: 1.1rem;
+  width: 30vw;
+  max-width: 18rem;
+  height: var(--sv-hair);
+  background: color-mix(in srgb, #fff 40%, transparent);
+}
+.sv-hud-progress > span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: var(--c-accent);
+  transform-origin: left;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 900px) {
+  body.scrollvid .section-head,
+  body.scrollvid #stats .trust,
+  body.scrollvid .hero-inner { max-width: 100%; }
+  .sv-hud .sv-hud-tr, .sv-hud-progress { display: none; }
+}

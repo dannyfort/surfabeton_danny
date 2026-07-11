@@ -1,0 +1,230 @@
+/* ============================================================
+   SURFABÉTON — Composants (toggle segmenté, carrousel, bannière)
+   Langage visuel inspiré de Join / Urban Building.
+   ============================================================ */
+
+/* ---------- Toggle segmenté (offre) ---------- */
+.segmented {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.28rem;
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-pill);
+  margin-bottom: 1.7rem;
+}
+.segmented button {
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--c-steel);
+  transition: color var(--duration-fast) ease, background var(--duration-fast) ease;
+}
+.segmented button[aria-pressed='true'] {
+  background: var(--c-accent);
+  color: #fff;
+}
+.segmented button:not([aria-pressed='true']):hover { color: var(--c-ink); }
+
+/* ---------- Carrousel de chantiers (cards photo) ---------- */
+.chantiers {
+  padding: var(--space-section) 0 calc(var(--space-section) * 0.7);
+  /* Opaque : la section tombe pendant la phase 3D sombre, on garantit le contraste */
+  background: var(--c-bg);
+}
+.chantiers-head {
+  max-width: var(--content-max);
+  margin: 0 auto 2.2rem;
+  padding: 0 var(--space-gutter);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.filter {
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--c-line);
+  background: transparent;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--c-steel);
+  transition: all var(--duration-fast) ease;
+}
+.filter[aria-pressed='true'] { background: var(--c-ink); border-color: var(--c-ink); color: #fff; }
+.filter:not([aria-pressed='true']):hover { border-color: var(--c-ink); color: var(--c-ink); }
+
+.pcarousel {
+  display: flex;
+  gap: 1.4rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 0.5rem var(--space-gutter) 1.5rem;
+  scrollbar-width: none;
+}
+.pcarousel::-webkit-scrollbar { display: none; }
+
+.pcard {
+  flex: 0 0 clamp(19rem, 30vw, 23rem);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  transition: opacity var(--duration-normal) ease, transform var(--duration-normal) ease;
+}
+.pcard.is-hidden { display: none; }
+.pcard-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-media);
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 26px), calc(100% - 26px) 100%, 0 100%);
+  /* Placeholder béton/architectural — remplacé par la vraie photo via --img */
+  background-image: var(--img, none),
+    repeating-linear-gradient(115deg, rgba(23, 24, 27, 0.06) 0 2px, transparent 2px 26px),
+    linear-gradient(150deg, #cbc7bf 0%, #9a958c 55%, #6f6b63 100%);
+  background-size: cover, auto, cover;
+  background-position: center;
+  filter: grayscale(0.28) contrast(1.03);
+}
+.pcard:nth-child(3n) .pcard-media { background-image: var(--img, none), repeating-linear-gradient(60deg, rgba(23,24,27,0.06) 0 2px, transparent 2px 24px), linear-gradient(150deg, #b9b5ac 0%, #837f77 60%, #55524b 100%); }
+.pcard:nth-child(3n + 2) .pcard-media { background-image: var(--img, none), repeating-linear-gradient(150deg, rgba(23,24,27,0.05) 0 2px, transparent 2px 28px), linear-gradient(150deg, #c4c0b7 0%, #8f8b82 55%, #625f58 100%); }
+.pcard-chip {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--c-ink);
+  border: none;
+  backdrop-filter: blur(4px);
+}
+.pcard-chip.is-industriel { background: var(--c-accent); color: #fff; }
+.pcard-arrow {
+  position: absolute;
+  right: 1rem;
+  bottom: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--c-ink);
+  font-size: 1.1rem;
+  transition: transform var(--duration-normal) var(--ease-out-expo), background var(--duration-fast) ease;
+}
+.pcard:hover .pcard-arrow { background: var(--c-accent); color: #fff; transform: translateX(4px); }
+.pcard-body {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0.4rem 0;
+}
+.pcard-name { font-size: 1.1rem; font-weight: 700; }
+.pcard-loc { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em; color: var(--c-steel); margin-top: 0.2rem; text-transform: uppercase; }
+.pcard-surface { font-family: var(--font-mono); font-weight: 600; color: var(--c-accent); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+.pcarousel-ctrl {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--space-gutter);
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+.pc-track {
+  flex: 1;
+  height: 3px;
+  background: var(--c-line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.pc-track span {
+  display: block;
+  height: 100%;
+  width: 30%;
+  background: var(--c-accent);
+  border-radius: 2px;
+  transform-origin: left;
+  transition: transform var(--duration-normal) ease, width var(--duration-normal) ease;
+}
+.pc-btns { display: flex; gap: 0.6rem; }
+.pc-btn {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--c-ink);
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  color: var(--c-ink);
+  background: transparent;
+  transition: all var(--duration-fast) ease;
+}
+.pc-btn:hover { background: var(--c-ink); color: var(--c-bg); }
+.pc-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* ---------- Bannière « Parlez à un spécialiste » ---------- */
+.specialist-wrap {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--space-gutter);
+}
+.specialist {
+  position: relative;
+  overflow: hidden;
+  background: var(--c-accent);
+  color: #fff;
+  border-radius: var(--radius-card);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 46px), calc(100% - 46px) 100%, 0 100%);
+  padding: clamp(2.5rem, 4vw, 4rem);
+  display: grid;
+  gap: 1.6rem;
+  max-width: 44rem;
+}
+/* Blueprint décoratif façon plan technique */
+.specialist::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(120deg, transparent 40%, #000 100%);
+  pointer-events: none;
+}
+.specialist > * { position: relative; z-index: 1; }
+.specialist-eyebrow { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 255, 255, 0.85); }
+.specialist-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 1rem + 3.2vw, 3.4rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+}
+.specialist-lead { color: rgba(255, 255, 255, 0.9); max-width: 30rem; }
+.specialist-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+.btn-onaccent {
+  background: #fff;
+  color: var(--c-accent);
+}
+.btn-onaccent::after { background: var(--c-accent); color: #fff; }
+.btn-onaccent:hover { background: var(--c-ink); color: #fff; }
+.btn-onaccent:hover::after { background: #fff; color: var(--c-ink); transform: translateX(4px); }
+.btn-outline-w {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+.btn-outline-w::after { background: rgba(255, 255, 255, 0.2); }
+.btn-outline-w:hover { border-color: #fff; }
+.specialist-note { font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); }
+.specialist-note a { text-decoration: underline; font-weight: 600; }
+
+@media (max-width: 700px) {
+  .specialist { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%); }
+}

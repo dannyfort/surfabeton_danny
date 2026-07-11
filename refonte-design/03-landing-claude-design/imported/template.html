@@ -1,0 +1,278 @@
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <style>
+    html, body { margin: 0; padding: 0; background: #EDE8DE; }
+    body { font-family: 'Hanken Grotesk', system-ui, sans-serif; color: #17140F; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: #D9503F; }
+    ::selection { background: #D9503F; color: #EDE8DE; }
+    input::placeholder, textarea::placeholder { color: rgba(247,243,234,0.38); }
+    input:focus, select:focus, textarea:focus { outline: none; }
+    @keyframes sb-scrollline { 0% { transform: scaleY(0); transform-origin: top; } 45% { transform: scaleY(1); transform-origin: top; } 55% { transform: scaleY(1); transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+  </style>
+</helmet>
+
+<nav id="nav-bar" data-screen-label="Navigation" style="position: fixed; top: 0; left: 0; right: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(20px, 4vw, 44px); color: #F2EDE3; background: rgba(237,232,222,0)">
+  <a id="nav-logo" href="#top" data-scrollto="top" style="display: inline-flex; align-items: baseline; font-family: 'Playfair Display', serif; font-size: 19px; letter-spacing: 0.045em; color: inherit; transform-origin: left center; cursor: pointer">
+    <span style="display: inline-flex; overflow: hidden; font-weight: 500"><span data-logo-letter="" style="display: inline-block">S</span><span data-logo-letter="" style="display: inline-block">U</span><span data-logo-letter="" style="display: inline-block">R</span><span data-logo-letter="" style="display: inline-block">F</span><span data-logo-letter="" style="display: inline-block">A</span></span><span style="display: inline-flex; overflow: hidden; font-weight: 800"><span data-logo-letter="" style="display: inline-block">B</span><span data-logo-letter="" style="display: inline-block">É</span><span data-logo-letter="" style="display: inline-block">T</span><span data-logo-letter="" style="display: inline-block">O</span><span data-logo-letter="" style="display: inline-block">N</span></span>
+  </a>
+  <div style="display: flex; align-items: center; gap: clamp(16px, 3vw, 40px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em">
+    <a data-nav-link="" data-scrollto="#realisations" href="#realisations" style="color: inherit">RÉALISATIONS</a>
+    <a data-nav-link="" data-scrollto="#expertises" href="#expertises" style="color: inherit">EXPERTISES</a>
+    <a data-nav-link="" data-scrollto="#contact" href="#contact" style="color: inherit">CONTACT</a>
+  </div>
+</nav>
+
+<div id="hero-wrap" data-screen-label="Hero cinématique" style="position: relative; height: 250vh; background: #17140F">
+  <div id="hero-sticky" style="position: sticky; top: 0; height: 100vh; overflow: hidden; background: #1A1712">
+
+    <sc-if value="{{ showVideo }}" hint-placeholder-val="{{ true }}">
+      <video id="hero-video" src="assets/hero-master.mp4" poster="assets/poster-start.jpg" preload="auto" muted="muted" playsinline="playsinline" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0"></video>
+    </sc-if>
+    <sc-if value="{{ reduced }}" hint-placeholder-val="{{ false }}">
+      <img src="assets/poster-wide.jpg" alt="Hangar industriel — lissage mécanique du béton" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0">
+    </sc-if>
+
+    <div style="position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(23,20,15,0.38) 0%, rgba(23,20,15,0) 24%, rgba(23,20,15,0) 60%, rgba(23,20,15,0.46) 100%)"></div>
+
+    <canvas id="hero-fx" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none"></canvas>
+
+    <div data-catch="" style="position: absolute; left: clamp(24px, 5vw, 92px); top: 34%; z-index: 4; width: min(600px, 46vw); color: #D9503F">
+      <p style="font-family: 'Playfair Display', serif; font-weight: 800; font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1.06; letter-spacing: 0.006em; text-transform: uppercase; margin: 0; text-shadow: 0 2px 34px rgba(23,20,15,0.5)"><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">«</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">L</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">e</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">b</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">é</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">t</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">o</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">n</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">,</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">p</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">o</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">l</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">i</span> <br><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">c</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">o</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">m</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">m</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">e</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">u</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">n</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">m</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">i</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">r</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">o</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">i</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">r</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">.</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">»</span></p>
+      <div style="height: 3px; width: 72px; background: #E89E8E; margin: 22px 0"></div>
+      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(246,241,231,0.9); line-height: 1.8; margin: 0">Dallage industriel haute planéité<br>— coulé, lissé, ciré.</p>
+    </div>
+
+    <sc-if value="{{ showDesktopCard }}" hint-placeholder-val="{{ true }}">
+      <div data-card-outer="" style="position: absolute; right: clamp(24px, 5vw, 92px); top: calc(50% - 264px); z-index: 5; width: min(392px, 40vw)">
+        <div data-card-entry="" style="transform-style: preserve-3d">
+          <div data-card-float="">
+            <div data-card-tilt="" style="transform-style: preserve-3d">
+              <div data-card-body="" style="position: relative; overflow: hidden; border-radius: 20px; background: rgba(32,27,21,0.5); backdrop-filter: blur(26px) saturate(1.3); -webkit-backdrop-filter: blur(26px) saturate(1.3); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 40px 80px rgba(23,20,15,0.42), 0 6px 24px rgba(23,20,15,0.25); padding: 26px 26px 22px">
+                <div data-card-shine="" style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,0) 35%, rgba(255,255,255,0.16) 46%, rgba(255,255,255,0) 58%); background-size: 220% 220%; background-position: 50% 50%"></div>
+                <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: #E89E8E; margin: 0 0 6px">— DEVIS</p>
+                <h3 style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 26px; color: #F6F1E7; margin: 0 0 18px">Votre devis en 24h</h3>
+                <form onSubmit="{{ onSubmit }}" style="display: flex; flex-direction: column; gap: 12px">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+                    <label style="display: flex; flex-direction: column; gap: 6px">
+                      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(247,243,234,0.66)">NOM</span>
+                      <input type="text" name="nom" required="required" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.24); border-radius: 10px; padding: 10px 12px; color: #F7F3EA; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; transition: box-shadow 0.35s ease, border-color 0.3s ease, background 0.3s ease" style-focus="border-color: rgba(217,80,63,0.9); background: rgba(255,255,255,0.14); box-shadow: 0 0 0 2px rgba(217,80,63,0.85), 0 0 22px rgba(217,80,63,0.35)">
+                    </label>
+                    <label style="display: flex; flex-direction: column; gap: 6px">
+                      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(247,243,234,0.66)">SOCIÉTÉ</span>
+                      <input type="text" name="societe" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.24); border-radius: 10px; padding: 10px 12px; color: #F7F3EA; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; transition: box-shadow 0.35s ease, border-color 0.3s ease, background 0.3s ease" style-focus="border-color: rgba(217,80,63,0.9); background: rgba(255,255,255,0.14); box-shadow: 0 0 0 2px rgba(217,80,63,0.85), 0 0 22px rgba(217,80,63,0.35)">
+                    </label>
+                  </div>
+                  <label style="display: flex; flex-direction: column; gap: 6px">
+                    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(247,243,234,0.66)">EMAIL OU TÉLÉPHONE</span>
+                    <input type="text" name="contact" required="required" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.24); border-radius: 10px; padding: 10px 12px; color: #F7F3EA; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; transition: box-shadow 0.35s ease, border-color 0.3s ease, background 0.3s ease" style-focus="border-color: rgba(217,80,63,0.9); background: rgba(255,255,255,0.14); box-shadow: 0 0 0 2px rgba(217,80,63,0.85), 0 0 22px rgba(217,80,63,0.35)">
+                  </label>
+                  <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px">
+                    <label style="display: flex; flex-direction: column; gap: 6px">
+                      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(247,243,234,0.66)">SURFACE (M²)</span>
+                      <input type="number" name="surface" min="0" step="50" placeholder="1 200" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.24); border-radius: 10px; padding: 10px 12px; color: #F7F3EA; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; transition: box-shadow 0.35s ease, border-color 0.3s ease, background 0.3s ease" style-focus="border-color: rgba(217,80,63,0.9); background: rgba(255,255,255,0.14); box-shadow: 0 0 0 2px rgba(217,80,63,0.85), 0 0 22px rgba(217,80,63,0.35)">
+                    </label>
+                    <label style="display: flex; flex-direction: column; gap: 6px">
+                      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(247,243,234,0.66)">TYPE DE PROJET</span>
+                      <select name="type" default-value="" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.24); border-radius: 10px; padding: 10px 12px; color: #F7F3EA; font-family: 'Hanken Grotesk', sans-serif; font-size: 14px">
+                        <option value="">—</option>
+                        <option value="Dallage industriel">Dallage industriel</option>
+                        <option value="Béton ciré décoratif">Béton ciré décoratif</option>
+                        <option value="Rénovation de surface">Rénovation de surface</option>
+                      </select>
+                    </label>
+                  </div>
+                  <button type="submit" style="background: #D9503F; color: #FBF6EC; border: none; border-radius: 10px; padding: 13px 16px; font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 4px; transition: transform 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 10px 24px rgba(217,80,63,0.35)" style-hover="transform: translateY(-2px); box-shadow: 0 16px 34px rgba(217,80,63,0.5)">Demander un devis</button>
+                  <p role="status" style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #E89E8E; margin: 0; min-height: 12px">{{ formNote }}</p>
+                </form>
+                <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: rgba(247,243,234,0.55); margin: 8px 0 0">Réponse sous 24h ouvrées — sans engagement.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <div data-wide-ui="" style="position: absolute; left: 0; right: 0; bottom: 13vh; z-index: 4; text-align: center; opacity: 0; pointer-events: none">
+      <h1 style="font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2.3rem, 5vw, 4.6rem); letter-spacing: 0.002em; color: #F6F1E7; margin: 0 20px 26px; text-shadow: 0 2px 40px rgba(23,20,15,0.55)">25 ans de surfaces parfaites.</h1>
+      <button onClick="{{ onDevisCta }}" style="background: #D9503F; color: #FBF6EC; border: none; border-radius: 12px; padding: 16px 32px; font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 17px; cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 14px 34px rgba(217,80,63,0.4)" style-hover="transform: translateY(-3px); box-shadow: 0 20px 44px rgba(217,80,63,0.55)">Demander un devis</button>
+    </div>
+
+    <div data-scroll-hint="" style="position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 10px; color: rgba(242,237,227,0.78); pointer-events: none">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em">SCROLL — DÉCOUVRIR LE CHANTIER</span>
+      <span style="width: 1px; height: 34px; background: rgba(242,237,227,0.6); animation: sb-scrollline 2.2s ease-in-out infinite"></span>
+    </div>
+
+  </div>
+</div>
+
+<section id="bp-wrap" data-screen-label="Blueprint 3D" style="position: relative; height: 280vh; background: #17140F">
+  <div style="position: sticky; top: 0; height: 100vh; overflow: hidden">
+    <canvas id="bp-canvas" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+    <div style="position: absolute; top: 92px; left: clamp(20px, 6vw, 90px); right: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none">
+      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #E89E8E; margin: 0">— PROTOTYPE 3D · VISUALISATION SCHÉMATIQUE</p>
+      <h2 style="font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: 1.05; color: #F6F1E7; margin: 14px 0 0; max-width: 14ch">Le lieu se construit.</h2>
+    </div>
+    <div style="position: absolute; bottom: 40px; left: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: rgba(246,241,231,0.85)">
+      <span data-bp-phase="0" style="position: absolute; bottom: 0; left: 0; white-space: nowrap">01 — LA DALLE, RÉGLÉE LASER</span>
+      <span data-bp-phase="1" style="position: absolute; bottom: 0; left: 0; white-space: nowrap; opacity: 0">02 — LES PORTIQUES S'ÉLÈVENT</span>
+      <span data-bp-phase="2" style="position: absolute; bottom: 0; left: 0; white-space: nowrap; opacity: 0">03 — LE VOLUME, PRÊT À L'EXPLOITATION</span>
+    </div>
+    <div style="position: absolute; bottom: 40px; right: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: rgba(246,241,231,0.45); text-align: right; line-height: 1.9">BLUEPRINT — HANGAR TYPE<br>DALLE 55 000 M² · STRUCTURE ACIER</div>
+  </div>
+</section>
+
+<section id="realisations" data-screen-label="Chiffres clés" style="background: #D6CCBC; padding: clamp(80px, 11vw, 150px) clamp(20px, 6vw, 90px) clamp(60px, 8vw, 110px); position: relative">
+  <div style="max-width: 1240px; margin: 0 auto">
+    <p data-reveal="" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #D9503F; margin: 0">— CHIFFRES CLÉS</p>
+    <h2 data-reveal="" style="font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2.2rem, 5.2vw, 4.3rem); text-transform: uppercase; letter-spacing: 0.005em; line-height: 1.04; color: #17140F; margin: 16px 0 clamp(40px, 6vw, 76px); max-width: 16ch">La preuve par la planéité.</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(16px, 2vw, 24px)">
+      <div data-reveal="" data-tilt-card="" style="border-radius: 20px; background: rgba(255,255,255,0.32); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 24px 50px rgba(23,20,15,0.14); padding: clamp(26px, 3vw, 44px)">
+        <p style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: clamp(2.1rem, 3.8vw, 3.4rem); line-height: 1; color: #17140F; margin: 0"><span data-count="55000" data-format="fr">55 000</span> <span style="font-size: 0.38em; font-weight: 600; color: #3F3A33">m²</span></p>
+        <div data-underline="" style="height: 6px; width: 78px; background: #E89E8E; margin: 16px 0 18px; transform-origin: left center"></div>
+        <p style="font-size: 15px; line-height: 1.55; color: #3F3A33; margin: 0; max-width: 32ch">Plus grand chantier réalisé — usine Siemens Gamesa, Le Havre</p>
+      </div>
+      <div data-reveal="" data-tilt-card="" style="border-radius: 20px; background: rgba(255,255,255,0.32); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 24px 50px rgba(23,20,15,0.14); padding: clamp(26px, 3vw, 44px)">
+        <p style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: clamp(2.1rem, 3.8vw, 3.4rem); line-height: 1; color: #17140F; margin: 0"><span data-count="155">155</span> <span style="font-size: 0.38em; font-weight: 600; color: #3F3A33">m³/jour</span></p>
+        <div data-underline="" style="height: 6px; width: 78px; background: #E89E8E; margin: 16px 0 18px; transform-origin: left center"></div>
+        <p style="font-size: 15px; line-height: 1.55; color: #3F3A33; margin: 0; max-width: 32ch">De béton mis en œuvre — 311 m³ coulés en 2 jours</p>
+      </div>
+      <div data-reveal="" data-tilt-card="" style="border-radius: 20px; background: rgba(255,255,255,0.32); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 24px 50px rgba(23,20,15,0.14); padding: clamp(26px, 3vw, 44px)">
+        <p style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: clamp(2.1rem, 3.8vw, 3.4rem); line-height: 1; color: #17140F; margin: 0">+<span data-count="25">25</span> <span style="font-size: 0.38em; font-weight: 600; color: #3F3A33">ans</span></p>
+        <div data-underline="" style="height: 6px; width: 78px; background: #E89E8E; margin: 16px 0 18px; transform-origin: left center"></div>
+        <p style="font-size: 15px; line-height: 1.55; color: #3F3A33; margin: 0; max-width: 32ch">D'expérience métier au service de vos surfaces</p>
+      </div>
+      <div data-reveal="" data-tilt-card="" style="border-radius: 20px; background: rgba(255,255,255,0.32); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 24px 50px rgba(23,20,15,0.14); padding: clamp(26px, 3vw, 44px)">
+        <p style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.2; color: #17140F; margin: 8px 0 0">QUALIBAT 2153</p>
+        <div data-underline="" style="height: 6px; width: 78px; background: #E89E8E; margin: 16px 0 18px; transform-origin: left center"></div>
+        <p style="font-size: 15px; line-height: 1.55; color: #3F3A33; margin: 0; max-width: 32ch">Dallage à usage industriel — technicité supérieure</p>
+      </div>
+    </div>
+
+    <div data-reveal="" style="margin-top: clamp(44px, 6vw, 72px); border-top: 1px solid rgba(23,20,15,0.12); padding-top: 28px">
+      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #3F3A33; margin: 0 0 20px; text-align: center">ILS NOUS FONT CONFIANCE — REJOIGNEZ LES DIZAINES D'ENTREPRISES QUI FONT CONFIANCE À SURFABÉTON</p>
+      <div style="overflow: hidden; mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent)">
+        <div data-marquee="" style="display: flex; gap: clamp(48px, 6vw, 96px); width: max-content; align-items: center">
+          <div style="display: flex; gap: clamp(48px, 6vw, 96px); align-items: center">
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/eiffage.com" alt="Eiffage" style="height: 36px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">EIFFAGE</span></span>
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/groupe-legendre.com" alt="Legendre" style="height: 36px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">LEGENDRE</span></span>
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/serapid.com" alt="Serapid" style="height: 32px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">SERAPID</span></span>
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/lhotellier.fr" alt="Lhotellier" style="height: 36px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">LHOTELLIER</span></span>
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/siemensgamesa.com" alt="Siemens Gamesa" style="height: 34px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">SIEMENS GAMESA</span></span>
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/laposte.fr" alt="La Poste" style="height: 36px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">LA POSTE</span></span>
+          </div>
+          <div style="display: flex; gap: clamp(48px, 6vw, 96px); align-items: center">
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/eiffage.com" alt="Eiffage" style="height: 36px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">EIFFAGE</span></span>
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/groupe-legendre.com" alt="Legendre" style="height: 36px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">LEGENDRE</span></span>
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/serapid.com" alt="Serapid" style="height: 32px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">SERAPID</span></span>
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/lhotellier.fr" alt="Lhotellier" style="height: 36px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">LHOTELLIER</span></span>
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/siemensgamesa.com" alt="Siemens Gamesa" style="height: 34px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">SIEMENS GAMESA</span></span>
+            <span style="display: inline-flex; align-items: center; height: 44px"><img src="https://logo.clearbit.com/laposte.fr" alt="La Poste" style="height: 36px; width: auto; mix-blend-mode: multiply"><span style="display: none; font-family: 'Hanken Grotesk', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: 0.05em; color: #17140F; white-space: nowrap">LA POSTE</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="expertises" data-screen-label="Nos expertises" style="background: #EDE8DE; padding: clamp(80px, 11vw, 150px) clamp(20px, 6vw, 90px)">
+  <div style="max-width: 1240px; margin: 0 auto">
+    <div style="text-align: center; margin-bottom: clamp(40px, 5vw, 70px)">
+      <p data-reveal="" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #D9503F; margin: 0">— CŒUR DE MÉTIER</p>
+      <h2 data-reveal="" style="font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2.2rem, 4.8vw, 3.8rem); line-height: 1.05; color: #17140F; margin: 14px 0 14px">Nos expertises</h2>
+      <p data-reveal="" style="font-size: 16px; color: #3F3A33; margin: 0">Parcourez notre vaste offre de services pour en savoir plus.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(16px, 2vw, 26px)">
+      <div data-reveal="" data-tilt-card="" style="position: relative; overflow: hidden; border-radius: 20px; height: clamp(320px, 34vw, 460px); box-shadow: 0 28px 60px rgba(23,20,15,0.18); cursor: pointer">
+        <img src="assets/exp-cire.jpg" alt="Béton ciré poli miroir" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23,20,15,0.08) 40%, rgba(23,20,15,0.68) 100%)"></div>
+        <p style="position: absolute; top: 20px; left: 22px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #E89E8E; margin: 0">01 — DÉCORATIF</p>
+        <h3 style="position: absolute; bottom: 22px; left: 22px; right: 22px; font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(1.6rem, 2.4vw, 2.2rem); color: #F6F1E7; margin: 0; line-height: 1.1">Bétons décoratifs</h3>
+      </div>
+      <div data-reveal="" data-tilt-card="" style="position: relative; overflow: hidden; border-radius: 20px; height: clamp(320px, 34vw, 460px); box-shadow: 0 28px 60px rgba(23,20,15,0.18); cursor: pointer">
+        <img src="assets/exp-sols.jpg" alt="Sols industriels grande surface" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23,20,15,0.08) 40%, rgba(23,20,15,0.68) 100%)"></div>
+        <p style="position: absolute; top: 20px; left: 22px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #E89E8E; margin: 0">02 — PHARE</p>
+        <h3 style="position: absolute; bottom: 22px; left: 22px; right: 22px; font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(1.6rem, 2.4vw, 2.2rem); color: #F6F1E7; margin: 0; line-height: 1.1">Sols industriels</h3>
+      </div>
+      <div data-reveal="" data-tilt-card="" style="position: relative; overflow: hidden; border-radius: 20px; height: clamp(320px, 34vw, 460px); box-shadow: 0 28px 60px rgba(23,20,15,0.18); cursor: pointer">
+        <img src="assets/exp-dallage.jpg" alt="Dallage béton — lissage mécanique" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23,20,15,0.08) 40%, rgba(23,20,15,0.68) 100%)"></div>
+        <p style="position: absolute; top: 20px; left: 22px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #E89E8E; margin: 0">03 — GRANDES SURFACES</p>
+        <h3 style="position: absolute; bottom: 22px; left: 22px; right: 22px; font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(1.6rem, 2.4vw, 2.2rem); color: #F6F1E7; margin: 0; line-height: 1.1">Dallage béton</h3>
+      </div>
+    </div>
+    <p data-reveal="" style="text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #3F3A33; margin: clamp(32px, 4vw, 52px) 0 0; line-height: 2.2">TRAITEMENT DE SURFACE&nbsp;&nbsp;·&nbsp;&nbsp;RENFORCEMENT DE PLANCHERS&nbsp;&nbsp;·&nbsp;&nbsp;RÉPARATIONS DE DALLAGE&nbsp;&nbsp;·&nbsp;&nbsp;BÉTON DRAINANT</p>
+  </div>
+</section>
+
+<footer id="contact" data-screen-label="Footer" style="background: #17140F; color: #EDE8DE; padding: clamp(64px, 8vw, 110px) clamp(20px, 6vw, 90px) 34px">
+  <div style="max-width: 1240px; margin: 0 auto">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(32px, 5vw, 64px); align-items: start">
+      <div>
+        <p style="font-family: 'Playfair Display', serif; font-size: 30px; letter-spacing: 0.045em; margin: 0 0 14px"><span style="font-weight: 500">SURFA</span><span style="font-weight: 800">BÉTON</span></p>
+        <p style="font-size: 15px; line-height: 1.6; color: rgba(237,232,222,0.62); margin: 0; max-width: 38ch">Dallage béton industriel haute planéité — coulage, lissage mécanique, béton ciré poli miroir. Normandie &amp; national.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; font-size: 15px">
+        <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #E89E8E; margin: 0 0 4px">— CONTACT</p>
+        <a href="tel:+33232560992" style="color: rgba(237,232,222,0.85)">02 32 56 09 92</a>
+        <a href="mailto:surfabeton@gmail.com" style="color: rgba(237,232,222,0.85)">surfabeton@gmail.com</a>
+        <p style="margin: 0; color: rgba(237,232,222,0.62); line-height: 1.6">Pl. Caillemare<br>27310 Saint-Ouen-de-Thouberville</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; font-size: 15px">
+        <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #E89E8E; margin: 0 0 4px">— EXPLORER</p>
+        <a data-scrollto="#realisations" href="#realisations" style="color: rgba(237,232,222,0.85)">Chiffres clés</a>
+        <a data-scrollto="#expertises" href="#expertises" style="color: rgba(237,232,222,0.85)">Nos expertises</a>
+        <a data-scrollto="top" href="#top" style="color: rgba(237,232,222,0.85)">Demander un devis</a>
+      </div>
+    </div>
+    <div style="margin-top: clamp(48px, 6vw, 80px); border-top: 1px solid rgba(237,232,222,0.14); padding-top: 20px; display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: rgba(237,232,222,0.45)">
+      <span>© 2026 SURFABÉTON — SAINT-OUEN-DE-THOUBERVILLE</span>
+      <span>QUALIBAT 2153 — DALLAGE À USAGE INDUSTRIEL</span>
+    </div>
+  </div>
+</footer>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <div style="position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 65">
+    <button onClick="{{ openSheet }}" style="width: 100%; background: #D9503F; color: #FBF6EC; border: none; border-radius: 14px; padding: 16px; font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 14px 34px rgba(23,20,15,0.45)">Demander un devis</button>
+  </div>
+  <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeSheet }}" style="position: fixed; inset: 0; z-index: 68; background: rgba(23,20,15,0.55)"></div>
+  </sc-if>
+  <div style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 70; transform: {{ sheetTransform }}; transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1); background: rgba(30,26,20,0.92); backdrop-filter: blur(22px) saturate(1.3); -webkit-backdrop-filter: blur(22px) saturate(1.3); border: 1px solid rgba(255,255,255,0.22); border-bottom: none; border-radius: 22px 22px 0 0; padding: 22px 20px 30px">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px">
+      <h3 style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 24px; color: #F6F1E7; margin: 0">Votre devis en 24h</h3>
+      <button onClick="{{ closeSheet }}" style="background: none; border: none; color: rgba(247,243,234,0.7); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; cursor: pointer; padding: 6px">FERMER ✕</button>
+    </div>
+    <form onSubmit="{{ onSubmit }}" style="display: flex; flex-direction: column; gap: 12px">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+        <input type="text" name="nom" required="required" placeholder="Nom" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.24); border-radius: 10px; padding: 12px; color: #F7F3EA; font-family: 'Hanken Grotesk', sans-serif; font-size: 15px">
+        <input type="text" name="societe" placeholder="Société" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.24); border-radius: 10px; padding: 12px; color: #F7F3EA; font-family: 'Hanken Grotesk', sans-serif; font-size: 15px">
+      </div>
+      <input type="text" name="contact" required="required" placeholder="Email ou téléphone" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.24); border-radius: 10px; padding: 12px; color: #F7F3EA; font-family: 'Hanken Grotesk', sans-serif; font-size: 15px">
+      <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px">
+        <input type="number" name="surface" min="0" step="50" placeholder="Surface m²" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.24); border-radius: 10px; padding: 12px; color: #F7F3EA; font-family: 'Hanken Grotesk', sans-serif; font-size: 15px">
+        <select name="type" default-value="" style="width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.24); border-radius: 10px; padding: 12px; color: #F7F3EA; font-family: 'Hanken Grotesk', sans-serif; font-size: 15px">
+          <option value="">Type de projet</option>
+          <option value="Dallage industriel">Dallage industriel</option>
+          <option value="Béton ciré décoratif">Béton ciré décoratif</option>
+          <option value="Rénovation de surface">Rénovation de surface</option>
+        </select>
+      </div>
+      <button type="submit" style="background: #D9503F; color: #FBF6EC; border: none; border-radius: 10px; padding: 15px; font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 16px; cursor: pointer">Demander un devis</button>
+      <p role="status" style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: #E89E8E; margin: 0; min-height: 12px">{{ formNote }}</p>
+      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: rgba(247,243,234,0.55); margin: 0">Réponse sous 24h ouvrées — sans engagement.</p>
+    </form>
+  </div>
+</sc-if>
+
+
