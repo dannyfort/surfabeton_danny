@@ -12,6 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <script src="./normandy.js?v=31" defer></script>
   <style>
     html, body { margin: 0; padding: 0; background: #EDE8DE; }
     body { font-family: 'Hanken Grotesk', system-ui, sans-serif; color: #17140F; -webkit-font-smoothing: antialiased; }
@@ -21,6 +22,7 @@
     input::placeholder, textarea::placeholder { color: rgba(247,243,234,0.38); }
     input:focus, select:focus, textarea:focus { outline: none; }
     @keyframes sb-scrollline { 0% { transform: scaleY(0); transform-origin: top; } 45% { transform: scaleY(1); transform-origin: top; } 55% { transform: scaleY(1); transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+    .sb-press:hover { color: #FFFFFF !important; transform: translateY(-2px); }
   </style>
 <style>
 /* Lenis smooth scroll */
@@ -34,6 +36,9 @@ html.lenis,html.lenis body{height:auto}
 @media (max-width:820px){
   .sb-desktop-card{display:none !important}
   .sb-mobile-only{display:block}
+  /* les deux cartouches bas du bloc Normandy se chevauchaient en portrait :
+     la fiche technique (droite) cède la place au libellé de phase (gauche) */
+  [data-nx-meta]{display:none !important}
 }
 .sb-hv-0:hover{ transform: translateY(-2px) !important; box-shadow: 0 16px 34px rgba(217,80,63,0.5) !important; }
 .sb-hv-1:hover{ transform: translateY(-3px) !important; box-shadow: 0 20px 44px rgba(217,80,63,0.55) !important; }
@@ -154,19 +159,65 @@ html.lenis,html.lenis body{height:auto}
   </div>
 </div>
 
-<section id="bp-wrap" data-screen-label="Blueprint 3D" style="position: relative; height: 280vh; background: #17140F">
+<section id="bp-wrap" data-screen-label="Le Normandy 3D" style="position: relative; height: 280vh; background: #17140F">
   <div style="position: sticky; top: 0; height: 100vh; overflow: hidden">
     <canvas id="bp-canvas" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
-    <div style="position: absolute; top: 92px; left: clamp(20px, 6vw, 90px); right: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none">
-      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #E89E8E; margin: 0">— PROTOTYPE 3D · VISUALISATION SCHÉMATIQUE</p>
-      <h2 style="font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: 1.05; color: #F6F1E7; margin: 14px 0 0; max-width: 14ch">Le lieu se construit.</h2>
+    <!-- Textes écrits dans le ciel : plus de cartes, typographie + voile de contraste -->
+    <div data-nx-lead style="position: absolute; top: clamp(76px, 13vh, 132px); left: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none; max-width: min(440px, 80vw)">
+      <div data-nx-scrim style="position: absolute; left: -18%; top: -38%; width: 158%; height: 198%; background: radial-gradient(58% 52% at 28% 41%, rgba(250,247,240,0.66) 0%, rgba(250,247,240,0.3) 46%, rgba(250,247,240,0) 76%); -webkit-mask-image: radial-gradient(closest-side at 28% 41%, black 30%, transparent 97%); mask-image: radial-gradient(closest-side at 28% 41%, black 30%, transparent 97%); pointer-events: none"></div>
+      <div style="position: relative">
+        <p data-nx-kicker style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: #C2402F; margin: 0 0 14px">— CHANTIER RÉFÉRENCE SURFABÉTON</p>
+        <h2 style="margin: 0; font-weight: 400">
+          <span data-nx-l1 style="display: block; font-family: 'Playfair Display', serif; font-weight: 500; font-style: italic; font-size: clamp(1rem, 1.65vw, 1.42rem); letter-spacing: 0.012em; color: #332E27; margin: 0 0 2px">Rénovation du théâtre</span>
+          <span data-nx-l2 style="display: block; font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2.15rem, 4.3vw, 3.55rem); line-height: 0.96; letter-spacing: -0.012em; color: #14120E; filter: drop-shadow(0 3px 14px rgba(248,244,236,0.7)) drop-shadow(0 0 30px rgba(248,244,236,0.5))">Le Normandy</span>
+        </h2>
+        <div style="display: flex; align-items: center; gap: 12px; margin: 16px 0 0">
+          <span data-nx-rule style="display: block; height: 1px; width: 52px; background: #C2402F; transform-origin: left center"></span>
+          <span data-nx-city style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.24em; color: #4A443B">LE HAVRE</span>
+        </div>
+        <p data-nx-body style="font-family: 'Hanken Grotesk', sans-serif; font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.62; color: #3B362F; margin: 16px 0 0; max-width: 37ch">Joyau Art Déco de 1934 rouvert en novembre 2025 après cinq ans de chantier. Surfabéton a participé à cette rénovation.</p>
+      </div>
     </div>
-    <div style="position: absolute; bottom: 40px; left: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: rgba(246,241,231,0.85)">
-      <span data-bp-phase="0" style="position: absolute; bottom: 0; left: 0; white-space: nowrap">01 — LA DALLE, RÉGLÉE LASER</span>
-      <span data-bp-phase="1" style="position: absolute; bottom: 0; left: 0; white-space: nowrap; opacity: 0">02 — LES PORTIQUES S'ÉLÈVENT</span>
-      <span data-bp-phase="2" style="position: absolute; bottom: 0; left: 0; white-space: nowrap; opacity: 0">03 — LE VOLUME, PRÊT À L'EXPLOITATION</span>
+    <div data-nx-phase style="position: absolute; bottom: clamp(38px, 9vh, 88px); left: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none">
+      <div style="position: relative; min-width: 356px; min-height: 16px; padding: 10px 16px; border-radius: 12px; background: rgba(250,247,240,0.72); backdrop-filter: blur(12px) saturate(1.15); -webkit-backdrop-filter: blur(12px) saturate(1.15); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 10px 26px rgba(23,20,15,0.10); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #2A251E">
+        <span data-bp-phase="0" style="position: absolute; top: 10px; left: 16px; white-space: nowrap">01 — LE SOCLE : GRANITO &amp; MOSAÏQUE</span>
+        <span data-bp-phase="1" style="position: absolute; top: 10px; left: 16px; white-space: nowrap; opacity: 0">02 — LA FAÇADE ART DÉCO S'ÉLÈVE</span>
+        <span data-bp-phase="2" style="position: absolute; top: 10px; left: 16px; white-space: nowrap; opacity: 0">03 — LE NORMANDY SE MET EN COULEUR</span>
+      </div>
     </div>
-    <div style="position: absolute; bottom: 40px; right: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: rgba(246,241,231,0.45); text-align: right; line-height: 1.9">BLUEPRINT — HANGAR TYPE<br>DALLE 55 000 M² · STRUCTURE ACIER</div>
+    <div data-nx-meta style="position: absolute; bottom: clamp(38px, 9vh, 88px); right: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none; text-align: right">
+      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #3B362F; margin: 0; line-height: 1.9; padding: 9px 15px; border-radius: 12px; background: rgba(250,247,240,0.72); backdrop-filter: blur(12px) saturate(1.15); -webkit-backdrop-filter: blur(12px) saturate(1.15); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 10px 26px rgba(23,20,15,0.10)">LE NORMANDY — THÉÂTRE ART DÉCO, 1934<br>ROUVERT EN NOVEMBRE 2025 · 789 PLACES</p>
+    </div>
+  </div>
+</section>
+
+<section id="presse-normandy" style="background: #17140F; padding: 30px 0 44px; position: relative">
+  <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: rgba(247,243,234,0.55); margin: 0 0 22px; text-align: center">ILS EN ONT PARLÉ — LA RENAISSANCE DU NORMANDY DANS LA PRESSE</p>
+  <div style="overflow: hidden; mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent)">
+    <div data-marquee="44" style="display: flex; gap: clamp(44px, 5.5vw, 88px); width: max-content; align-items: center">
+        <div style="display: flex; gap: clamp(44px, 5.5vw, 88px); align-items: center">
+          <a href="https://france3-regions.franceinfo.fr/normandie/seine-maritime/havre/c-est-une-belle-aventure-humaine-le-mythique-theatre-normandy-au-havre-rouvre-ses-portes-apres-35-ans-3257227.html" target="_blank" rel="noopener" aria-label="France 3 Normandie — lire l'article" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 150 34" height="30" width="132" fill="none" role="img" aria-hidden="true"><rect x="0" y="5" width="25" height="25" rx="6" fill="currentColor"/><text x="12.5" y="24" text-anchor="middle" font-family="'Hanken Grotesk',sans-serif" font-weight="800" font-size="17" fill="#17140F">3</text><text x="32" y="17" font-family="'Hanken Grotesk',sans-serif" font-weight="700" font-size="15" fill="currentColor">france</text><text x="32" y="29" font-family="'IBM Plex Mono',monospace" font-size="9" letter-spacing="1.6" fill="currentColor" opacity="0.72">NORMANDIE</text></svg></a>
+          <a href="https://www.ici.fr/normandie/seine-maritime-76/le-havre/le-theatre-le-normandy-rouvre-ses-portes-fin-novembre-6723957" target="_blank" rel="noopener" aria-label="ici Normandie (ex-France Bleu) — lire l'article" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 158 34" height="30" width="139" fill="none" role="img" aria-hidden="true"><rect x="0" y="5" width="40" height="25" rx="7" fill="currentColor"/><text x="20" y="24" text-anchor="middle" font-family="'Hanken Grotesk',sans-serif" font-weight="800" font-size="16" fill="#17140F">ici</text><text x="48" y="17" font-family="'Hanken Grotesk',sans-serif" font-weight="700" font-size="14" fill="currentColor">Normandie</text><text x="48" y="29" font-family="'IBM Plex Mono',monospace" font-size="8.5" letter-spacing="1.2" fill="currentColor" opacity="0.72">EX-FRANCE BLEU</text></svg></a>
+          <a href="https://www.lemoniteur.fr/normandie/seine-maritime/seine-maritime-reouverture-du-theatre-le-normandy-au-havre-cet-automne-apres-restauration.Q4S7ZJF4JRFVDAT3FHPVYPWRSY.html" target="_blank" rel="noopener" aria-label="Le Moniteur — lire l'article" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 142 34" height="30" width="125" fill="none" role="img" aria-hidden="true"><text x="0" y="26" font-family="'Playfair Display',serif" font-weight="700" font-size="23" fill="currentColor">Le Moniteur</text></svg></a>
+          <a href="https://www.tendanceouest.com/actualite-434301-le-havre-le-normandy-inaugure-apres-5-ans-de-travaux-et-deja-plus-de-55-spectacles-au-programme" target="_blank" rel="noopener" aria-label="Tendance Ouest — lire l'article" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 166 34" height="30" width="146" fill="none" role="img" aria-hidden="true"><text x="0" y="16" font-family="'Hanken Grotesk',sans-serif" font-weight="800" font-size="15" letter-spacing="0.6" fill="currentColor">TENDANCE</text><text x="0" y="30" font-family="'Hanken Grotesk',sans-serif" font-weight="500" font-size="15" letter-spacing="4.6" fill="currentColor" opacity="0.8">OUEST</text></svg></a>
+          <a href="https://lehavre.fr/actualites/toutes-les-actualites/du-mythe-la-scene-le-normandy-renait" target="_blank" rel="noopener" aria-label="Ville du Havre — lire l'article" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 132 34" height="30" width="116" fill="none" role="img" aria-hidden="true"><path d="M0 26 q7 -5 14 0 t14 0" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/><text x="0" y="18" font-family="'Hanken Grotesk',sans-serif" font-weight="800" font-size="16" letter-spacing="1.2" fill="currentColor">LE HAVRE</text><text x="36" y="29" font-family="'IBM Plex Mono',monospace" font-size="8.5" letter-spacing="1.2" fill="currentColor" opacity="0.7">VILLE</text></svg></a>
+          <a href="https://www.lagazettefrance.fr/article/jessy-spahija-redonne-vie-au-theatre-le-normandy" target="_blank" rel="noopener" aria-label="La Gazette France — lire l'article" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 150 34" height="30" width="132" fill="none" role="img" aria-hidden="true"><text x="0" y="26" font-family="'Playfair Display',serif" font-style="italic" font-weight="600" font-size="22" fill="currentColor">La Gazette</text></svg></a>
+          <a href="https://creapills.com/havre-renovation-cinema-normandy-20230201" target="_blank" rel="noopener" aria-label="Creapills — lire l'article" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 120 34" height="30" width="105" fill="none" role="img" aria-hidden="true"><circle cx="9" cy="17.5" r="8" fill="currentColor"/><text x="24" y="25" font-family="'Hanken Grotesk',sans-serif" font-weight="700" font-size="19" letter-spacing="0.4" fill="currentColor">creapills</text></svg></a>
+          <a href="https://fr.wikipedia.org/wiki/Le_Normandy_(Le_Havre)" target="_blank" rel="noopener" aria-label="Wikipédia — lire l'article" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 138 34" height="30" width="121" fill="none" role="img" aria-hidden="true"><text x="0" y="27" font-family="'Playfair Display',serif" font-weight="700" font-size="26" fill="currentColor">W</text><text x="26" y="24" font-family="'IBM Plex Mono',monospace" font-size="11" letter-spacing="1.5" fill="currentColor" opacity="0.85">IKIPÉDIA</text></svg></a>
+          <a href="https://theatrelenormandy.com/" target="_blank" rel="noopener" aria-label="Site officiel du théâtre — lire l'article" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 196 34" height="30" width="172" fill="none" role="img" aria-hidden="true"><text x="0" y="23" font-family="'IBM Plex Mono',monospace" font-weight="600" font-size="13" letter-spacing="0.6" fill="#E89E8E">theatrelenormandy.com</text></svg></a>
+        </div>
+        <div style="display: flex; gap: clamp(44px, 5.5vw, 88px); align-items: center">
+          <a href="https://france3-regions.franceinfo.fr/normandie/seine-maritime/havre/c-est-une-belle-aventure-humaine-le-mythique-theatre-normandy-au-havre-rouvre-ses-portes-apres-35-ans-3257227.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 150 34" height="30" width="132" fill="none" role="img" aria-hidden="true"><rect x="0" y="5" width="25" height="25" rx="6" fill="currentColor"/><text x="12.5" y="24" text-anchor="middle" font-family="'Hanken Grotesk',sans-serif" font-weight="800" font-size="17" fill="#17140F">3</text><text x="32" y="17" font-family="'Hanken Grotesk',sans-serif" font-weight="700" font-size="15" fill="currentColor">france</text><text x="32" y="29" font-family="'IBM Plex Mono',monospace" font-size="9" letter-spacing="1.6" fill="currentColor" opacity="0.72">NORMANDIE</text></svg></a>
+          <a href="https://www.ici.fr/normandie/seine-maritime-76/le-havre/le-theatre-le-normandy-rouvre-ses-portes-fin-novembre-6723957" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 158 34" height="30" width="139" fill="none" role="img" aria-hidden="true"><rect x="0" y="5" width="40" height="25" rx="7" fill="currentColor"/><text x="20" y="24" text-anchor="middle" font-family="'Hanken Grotesk',sans-serif" font-weight="800" font-size="16" fill="#17140F">ici</text><text x="48" y="17" font-family="'Hanken Grotesk',sans-serif" font-weight="700" font-size="14" fill="currentColor">Normandie</text><text x="48" y="29" font-family="'IBM Plex Mono',monospace" font-size="8.5" letter-spacing="1.2" fill="currentColor" opacity="0.72">EX-FRANCE BLEU</text></svg></a>
+          <a href="https://www.lemoniteur.fr/normandie/seine-maritime/seine-maritime-reouverture-du-theatre-le-normandy-au-havre-cet-automne-apres-restauration.Q4S7ZJF4JRFVDAT3FHPVYPWRSY.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 142 34" height="30" width="125" fill="none" role="img" aria-hidden="true"><text x="0" y="26" font-family="'Playfair Display',serif" font-weight="700" font-size="23" fill="currentColor">Le Moniteur</text></svg></a>
+          <a href="https://www.tendanceouest.com/actualite-434301-le-havre-le-normandy-inaugure-apres-5-ans-de-travaux-et-deja-plus-de-55-spectacles-au-programme" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 166 34" height="30" width="146" fill="none" role="img" aria-hidden="true"><text x="0" y="16" font-family="'Hanken Grotesk',sans-serif" font-weight="800" font-size="15" letter-spacing="0.6" fill="currentColor">TENDANCE</text><text x="0" y="30" font-family="'Hanken Grotesk',sans-serif" font-weight="500" font-size="15" letter-spacing="4.6" fill="currentColor" opacity="0.8">OUEST</text></svg></a>
+          <a href="https://lehavre.fr/actualites/toutes-les-actualites/du-mythe-la-scene-le-normandy-renait" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 132 34" height="30" width="116" fill="none" role="img" aria-hidden="true"><path d="M0 26 q7 -5 14 0 t14 0" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/><text x="0" y="18" font-family="'Hanken Grotesk',sans-serif" font-weight="800" font-size="16" letter-spacing="1.2" fill="currentColor">LE HAVRE</text><text x="36" y="29" font-family="'IBM Plex Mono',monospace" font-size="8.5" letter-spacing="1.2" fill="currentColor" opacity="0.7">VILLE</text></svg></a>
+          <a href="https://www.lagazettefrance.fr/article/jessy-spahija-redonne-vie-au-theatre-le-normandy" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 150 34" height="30" width="132" fill="none" role="img" aria-hidden="true"><text x="0" y="26" font-family="'Playfair Display',serif" font-style="italic" font-weight="600" font-size="22" fill="currentColor">La Gazette</text></svg></a>
+          <a href="https://creapills.com/havre-renovation-cinema-normandy-20230201" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 120 34" height="30" width="105" fill="none" role="img" aria-hidden="true"><circle cx="9" cy="17.5" r="8" fill="currentColor"/><text x="24" y="25" font-family="'Hanken Grotesk',sans-serif" font-weight="700" font-size="19" letter-spacing="0.4" fill="currentColor">creapills</text></svg></a>
+          <a href="https://fr.wikipedia.org/wiki/Le_Normandy_(Le_Havre)" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 138 34" height="30" width="121" fill="none" role="img" aria-hidden="true"><text x="0" y="27" font-family="'Playfair Display',serif" font-weight="700" font-size="26" fill="currentColor">W</text><text x="26" y="24" font-family="'IBM Plex Mono',monospace" font-size="11" letter-spacing="1.5" fill="currentColor" opacity="0.85">IKIPÉDIA</text></svg></a>
+          <a href="https://theatrelenormandy.com/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" class="sb-press" style="display: inline-flex; align-items: center; color: rgba(246,241,231,0.82); text-decoration: none; transition: color 0.3s ease, transform 0.3s ease"><svg viewBox="0 0 196 34" height="30" width="172" fill="none" role="img" aria-hidden="true"><text x="0" y="23" font-family="'IBM Plex Mono',monospace" font-weight="600" font-size="13" letter-spacing="0.6" fill="#E89E8E">theatrelenormandy.com</text></svg></a>
+        </div>
+    </div>
   </div>
 </section>
 
@@ -375,7 +426,7 @@ class Component extends DCLogic {
 
   _waitLibs() {
     return new Promise((resolve) => {
-      const check = () => (window.gsap && window.ScrollTrigger && window.Lenis && window.THREE) ? resolve() : setTimeout(check, 60);
+      const check = () => (window.gsap && window.ScrollTrigger && window.Lenis && window.THREE && window.SB_NORMANDY) ? resolve() : setTimeout(check, 60);
       check();
     });
   }
@@ -408,6 +459,7 @@ class Component extends DCLogic {
     this._initNav();
     this._initParticles();
     this._initBlueprint();
+    this._initNormandyText();
     this._initSections(false);
     this._initLogos();
     this._initAnchors();
@@ -790,122 +842,99 @@ class Component extends DCLogic {
     fx.renderer.render(fx.scene, fx.camera);
   }
 
-  // ================= Blueprint 3D : le hangar se construit =================
+  // ================= Blueprint 3D : le Normandy se construit =================
+  // Théâtre Le Normandy (1934) — chantier référence Surfabéton, reconstruit
+  // procéduralement (voir refonte-design/04-normandy-3d/). public/normandy.js
   _initBlueprint() {
     const THREE = window.THREE;
     const canvas = document.getElementById('bp-canvas');
-    if (!canvas) return;
+    if (!canvas || !window.SB_NORMANDY) return;
 
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, this.state.isMobile ? 1.3 : 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 0.96;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x17140F);
-    scene.fog = new THREE.Fog(0x17140F, 22, 58);
-    const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 120);
+    const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 200);
 
-    // Sol + grille technique
-    const floor = new THREE.Mesh(
-      new THREE.PlaneGeometry(90, 90),
-      new THREE.MeshStandardMaterial({ color: 0x1E1A14, roughness: 0.4, metalness: 0.15 })
-    );
-    floor.rotation.x = -Math.PI / 2;
-    scene.add(floor);
-    const grid = new THREE.GridHelper(70, 70, 0xD9503F, 0x39322A);
-    grid.position.y = 0.012;
-    grid.material.transparent = true;
-    grid.material.opacity = 0.34;
-    scene.add(grid);
+    // Sol de rue + grille technique (signature graphique, discrète au jour)
+    // Sol photoréaliste (rue, pelouses, arbres, particules) — il ÉCLOT au scroll
+    const ground = window.SB_NORMANDY.createGround(THREE, { isMobile: this.state.isMobile });
+    scene.add(ground.group);
 
-    // La dalle polie (miroir léger)
-    const slab = new THREE.Mesh(
-      new THREE.PlaneGeometry(26, 15),
-      new THREE.MeshStandardMaterial({ color: 0x2A241B, roughness: 0.12, metalness: 0.55, emissive: 0x17120C })
-    );
-    slab.rotation.x = -Math.PI / 2;
-    slab.position.y = 0.02;
-    scene.add(slab);
-    // Trait laser du périmètre
+    // Trait laser du périmètre — footprint du Normandy
     const edge = new THREE.LineLoop(
       new THREE.BufferGeometry().setFromPoints([
-        new THREE.Vector3(-13, 0.05, -7.5), new THREE.Vector3(13, 0.05, -7.5),
-        new THREE.Vector3(13, 0.05, 7.5), new THREE.Vector3(-13, 0.05, 7.5)
+        new THREE.Vector3(-10.6, 0.05, 2.4), new THREE.Vector3(10.6, 0.05, 2.4),
+        new THREE.Vector3(10.6, 0.05, -16.4), new THREE.Vector3(-10.6, 0.05, -16.4)
       ]),
       new THREE.LineBasicMaterial({ color: 0xD9503F, transparent: true, opacity: 0.95 })
     );
     scene.add(edge);
 
-    // Portiques : 5 travées × 2 files de piliers + charpente
-    const pillarMat = new THREE.MeshStandardMaterial({ color: 0x3A332A, roughness: 0.5, metalness: 0.3 });
-    const lineMat = new THREE.LineBasicMaterial({ color: 0xE89E8E, transparent: true, opacity: 0.75 });
-    const beamMat = new THREE.MeshStandardMaterial({ color: 0x4A4238, roughness: 0.45, metalness: 0.4, transparent: true, opacity: 0 });
-    const pillars = [];
-    const H = 5.6;
-    for (let c = 0; c < 5; c++) {
-      const x = -10 + c * 5;
-      for (const z of [-7, 7]) {
-        const g = new THREE.Group();
-        const body = new THREE.Mesh(new THREE.BoxGeometry(0.6, H, 0.6), pillarMat);
-        body.position.y = H / 2;
-        const edges = new THREE.LineSegments(new THREE.EdgesGeometry(body.geometry), lineMat);
-        edges.position.y = H / 2;
-        g.add(body); g.add(edges);
-        g.position.set(x, 0, z);
-        g.scale.y = 0.0001;
-        scene.add(g);
-        pillars.push(g);
-      }
-    }
-    const roof = new THREE.Group();
-    for (let c = 0; c < 5; c++) {
-      const x = -10 + c * 5;
-      const truss = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.32, 14.6), beamMat);
-      truss.position.set(x, H + 0.16, 0);
-      roof.add(truss);
-      // pentes du portique vers le faîtage
-      for (const dir of [-1, 1]) {
-        const slope = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.24, 7.9), beamMat);
-        slope.position.set(x, H + 1.05, dir * 3.5);
-        slope.rotation.x = dir * 0.27;
-        roof.add(slope);
-      }
-    }
-    for (const z of [-7, 0, 7]) {
-      const purlin = new THREE.Mesh(new THREE.BoxGeometry(20.6, 0.26, 0.26), beamMat);
-      purlin.position.set(0, z === 0 ? H + 2.1 : H + 0.16, z);
-      roof.add(purlin);
-    }
-    scene.add(roof);
+    // Le théâtre procédural + son API de construction build(u)
+    const normandy = window.SB_NORMANDY.create(THREE, { quality: this.state.isMobile ? 'lite' : 'high' });
+    scene.add(normandy.group);
 
-    // Lumières golden hour
-    scene.add(new THREE.AmbientLight(0x8A7A66, 0.55));
-    const sun = new THREE.DirectionalLight(0xFFD9A8, 1.35);
-    sun.position.set(14, 16, 8);
-    scene.add(sun);
-    const glow = new THREE.PointLight(0xD9503F, 0.7, 34);
-    glow.position.set(-9, 2.2, 5);
-    scene.add(glow);
+    // Ciel + lever de soleil + rig lumière (aube chaude → matin accueillant)
+    const sky = window.SB_NORMANDY.createSky(THREE, scene, { isMobile: this.state.isMobile });
+    scene.add(sky.group);
+    sky.update(0, camera, 0);
+    ground.update(0, 0, camera);
 
-    // Chemin caméra (3 axes de cadrage)
+    // Travelling arrière (backward dolly) : première image SERRÉE et BASSE sur la
+    // colonnade en train de monter — le cadre est plein de chantier, pas de ciel.
+    // La caméra recule et s'élève pendant la construction, jusqu'au plan final
+    // façade cadrée à droite (colonne de texte libre à gauche).
     const camPath = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-12.5, 1.1, 10.5),
-      new THREE.Vector3(10, 4.6, 13),
-      new THREE.Vector3(0.5, 10.5, 23)
+      new THREE.Vector3(0.9, 2.7, 9.6),
+      new THREE.Vector3(1.5, 6.6, 21.0),
+      new THREE.Vector3(2.0, 7.4, 30.0)
     ]);
     const lookPath = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-5, 0.3, 2),
-      new THREE.Vector3(0, 1.8, 0),
-      new THREE.Vector3(0, 2.6, 0)
+      new THREE.Vector3(-0.7, 3.1, 0),
+      new THREE.Vector3(-3.0, 8.05, 0),
+      new THREE.Vector3(-4.6, 8.05, 0)
     ]);
 
-    this._bp = { renderer, scene, camera, pillars, roof, beamMat, camPath, lookPath, edge, active: false, lastU: -1 };
+    this._bp = { renderer, scene, camera, normandy, sky, ground, camPath, lookPath, edge,
+      active: false, lastU: -1 };
+    // survol : parallaxe caméra sur desktop uniquement (jamais en mouvement réduit)
+    this._bpParallax = window.matchMedia('(pointer: fine)').matches && !this.state.reduced;
+    window.__bp = this._bp; window.__cmp = this; // debug/QA : accès console au bloc 3D
 
     const resize = () => {
-      const w = canvas.parentElement.clientWidth, h = canvas.parentElement.clientHeight;
+      // le parent peut mesurer 0x0 avant layout (pane cachée, course de fontes) :
+      // sans garde, aspect=NaN contamine le chemin caméra définitivement.
+      const w = canvas.parentElement.clientWidth || window.innerWidth || 1280;
+      const h = canvas.parentElement.clientHeight || window.innerHeight || 720;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
+      // façade cadrée à droite : il faut loger 10,6 m de demi-façade + le décalage
+      // de visée, sinon elle déborde. On recule d'autant sur écran étroit.
+      const narrow = camera.aspect < 1.05;
+      const aim = narrow ? -1.2 : -4.6;               // visée décalée (portrait : recentrée)
+      // 11,6 m = demi-largeur RÉELLE façade pylônes compris (mesurée sur la bbox) ;
+      // à 10,6 le bord droit du théâtre était rogné en portrait
+      const halfW = 11.6 + Math.abs(aim);
+      const need = 2.0 + halfW / (Math.tan(camera.fov * Math.PI / 360) * camera.aspect);
+      camPath.points[2].set(narrow ? 0 : 2.0, 7.4, Math.max(26.0, need));
+      lookPath.points[2].set(aim, 8.05, 0);
+      // le dolly recule sur un axe quasi droit : les points amont suivent le plan final
+      // (en portrait on démarre un peu plus loin, le cadre étroit rogne la colonnade)
+      camPath.points[0].set(narrow ? 0 : 0.9, 2.7, narrow ? 12.5 : 9.6);
+      // point milieu reculé + visée haute : c'est là que la masse haute pousse le
+      // plus vite, sans ça le sommet du théâtre sortait du cadre entre 20 et 60 %
+      camPath.points[1].set(narrow ? 0 : 1.5, 6.6, narrow ? 23.0 : 21.0);
+      lookPath.points[0].set(narrow ? 0 : -0.7, 3.1, 0);
+      lookPath.points[1].set(narrow ? -0.6 : -3.0, 8.05, 0);
       camera.updateProjectionMatrix();
       this._bp.lastU = -1;
     };
+    this._bp.resize = resize;
     resize();
     window.addEventListener('resize', resize);
 
@@ -929,28 +958,63 @@ class Component extends DCLogic {
     const bp = this._bp;
     if (!bp || !bp.active) return;
     const u = this._bpU;
-    if (Math.abs(u - bp.lastU) < 0.0004 && bp.lastU >= 0) return;
+    const now = performance.now();
     bp.lastU = u;
+
+    // Textes : entrée quand le scrub passe 0,12, et REVERSE au scroll remontant.
+    // (Déclenché ici et non dans onUpdate : la timeline peut ne pas exister encore.)
+    if (this._nxTl && !this.state.reduced) {
+      const on = u > 0.12;
+      if (on !== this._nxOn) {
+        this._nxOn = on;
+        if (on) {
+          if (!this._nxEverPlayed && u > 0.5) this._nxTl.progress(1); // reload en milieu de page
+          else this._nxTl.play();
+          this._nxEverPlayed = true;
+        } else {
+          this._nxTl.reverse();
+        }
+      }
+    }
 
     const ease = (x) => 1 - Math.pow(1 - Math.max(0, Math.min(1, x)), 3);
 
-    // Caméra : change d'axe, cadre la dalle puis le volume
-    const cu = Math.max(0, Math.min(1, u));
-    const pos = bp.camPath.getPoint(cu);
-    const look = bp.lookPath.getPoint(cu);
-    bp.camera.position.copy(pos);
-    bp.camera.lookAt(look);
+    // Auto-guérison : si l'init a eu lieu sans layout (0x0), le chemin est NaN
+    if (!isFinite(bp.camPath.points[2].z) && bp.resize) bp.resize();
 
-    // Piliers : sortent du sol, staggerés
-    bp.pillars.forEach((g, i) => {
-      const p = ease((u - 0.14 - i * 0.032) / 0.24);
-      g.scale.y = Math.max(0.0001, p);
-    });
-    // Charpente : apparaît en fin de course
-    bp.beamMat.opacity = ease((u - 0.6) / 0.28);
+    const p = Math.max(0, Math.min(1, u));
+    // Construction DÉJÀ EN COURS à la première image : le rez-de-chaussée est monté
+    // (u=0 -> 34 % de chantier) et les volumes hauts s'élèvent dès les premiers pixels
+    // de scroll. Sans ce plancher, la section ouvrait sur un terrain vide.
+    const bu = 0.34 + 0.66 * p;
+    // Le travelling arrière court sur TOUT le scroll, mais en ease-out : il recule
+    // VITE au début pour rester devant le bâtiment qui pousse, puis décélère dans
+    // le plan final. (Sans cet ease, la masse haute débordait du cadre vers u=0,25.)
+    const cu = 1 - Math.pow(1 - p, 2.2);
+    bp.camera.position.copy(bp.camPath.getPoint(cu));
+    // Parallaxe au survol : la caméra glisse vers la souris et garde la visée
+    // -> orbital 3D marqué autour du bâtiment (pointer fine uniquement).
+    // Amplitude plus faible au départ (de près, quelques degrés suffisent) puis
+    // franche dans le plan final.
+    if (!this._bpPar) this._bpPar = { x: 0, y: 0 };
+    const pAmp = this._bpParallax ? (0.7 + 1.5 * cu) : 0;
+    this._bpPar.x += ((this._mouse.x * pAmp) - this._bpPar.x) * 0.065;
+    this._bpPar.y += ((-this._mouse.y * pAmp * 0.7) - this._bpPar.y) * 0.065;
+    bp.camera.position.x += this._bpPar.x;
+    bp.camera.position.y += this._bpPar.y;
+    bp.camera.lookAt(bp.lookPath.getPoint(cu));
 
-    // Labels de phase
-    const phase = u < 0.34 ? 0 : (u < 0.68 ? 1 : 2);
+    // Trait laser : trace le périmètre dès l'entrée de section
+    bp.edge.material.opacity = 0.95 * ease(u / 0.06) * (1 - 0.55 * ease((u - 0.75) / 0.2));
+
+    // Le théâtre se construit (socle → volumes → enseigne & lumière)
+    bp.normandy.build(bu);
+    // Ciel de jour et terrain posés dès u=0 ; la lumière se dégage pendant le chantier
+    bp.sky.update(u, bp.camera, now);
+    bp.ground.update(u, now, bp.camera);
+
+    // Labels de phase (sur le scroll : le chantier démarre déjà entamé)
+    const phase = u < 0.26 ? 0 : (u < 0.62 ? 1 : 2);
     document.querySelectorAll('[data-bp-phase]').forEach((el) => {
       const on = parseInt(el.getAttribute('data-bp-phase'), 10) === phase;
       el.style.opacity = on ? '1' : '0';
@@ -958,6 +1022,60 @@ class Component extends DCLogic {
     });
 
     bp.renderer.render(bp.scene, bp.camera);
+  }
+
+  // ============ Textes Normandy : entrée GSAP mot à mot (masques + 3D) ============
+  _initNormandyText() {
+    const gsap = window.gsap;
+    const root = document.getElementById('bp-wrap');
+    if (!root) return;
+    const q = (s) => root.querySelector(s);
+
+    // découpe en mots, chacun dans un masque qui coupe le débord bas
+    const splitWords = (el) => {
+      if (!el) return [];
+      const words = (el.textContent || '').trim().split(/\s+/);
+      el.textContent = '';
+      const inners = [];
+      words.forEach((w, i) => {
+        const mask = document.createElement('span');
+        mask.style.cssText = 'display: inline-block; overflow: hidden; vertical-align: bottom; padding: 0 0.06em 0.12em';
+        const inner = document.createElement('span');
+        inner.style.cssText = 'display: inline-block; will-change: transform';
+        inner.textContent = w;
+        mask.appendChild(inner);
+        el.appendChild(mask);
+        if (i < words.length - 1) el.appendChild(document.createTextNode(' '));
+        inners.push(inner);
+      });
+      return inners;
+    };
+
+    const kicker = q('[data-nx-kicker]');
+    const w1 = splitWords(q('[data-nx-l1]'));
+    const w2 = splitWords(q('[data-nx-l2]'));
+    const rule = q('[data-nx-rule]');
+    const city = q('[data-nx-city]');
+    const body = q('[data-nx-body]');
+    const scrim = q('[data-nx-scrim]');
+    const phase = q('[data-nx-phase]');
+    const meta = q('[data-nx-meta]');
+
+    const tl = gsap.timeline({ paused: true, defaults: { ease: 'expo.out' } });
+    tl.from(scrim, { opacity: 0, scale: 0.86, duration: 1.5, ease: 'power2.out' }, 0)
+      .from(kicker, { opacity: 0, x: -26, letterSpacing: '0.5em', duration: 1.0 }, 0.05)
+      .from(w1, { yPercent: 120, opacity: 0, duration: 0.95, stagger: 0.055 }, 0.14)
+      // les mots du nom basculent depuis le sol, en perspective
+      .from(w2, { yPercent: 118, rotationX: -72, opacity: 0, duration: 1.25, stagger: 0.085,
+        transformOrigin: '50% 100% -24px', transformPerspective: 900 }, 0.26)
+      .from(rule, { scaleX: 0, duration: 0.9, ease: 'power3.inOut' }, 0.72)
+      .from(city, { opacity: 0, x: -16, filter: 'blur(7px)', duration: 0.85 }, 0.78)
+      .from(body, { opacity: 0, y: 22, filter: 'blur(9px)', duration: 1.0 }, 0.84)
+      .from([phase, meta], { opacity: 0, y: 16, duration: 0.9, stagger: 0.1 }, 0.9);
+
+    this._nxTl = tl;
+    window.__nx = { tl: tl, words: w2 }; // debug/QA
+    if (this.state.reduced) { tl.progress(1); this._nxOn = true; this._nxEverPlayed = true; }
   }
 
   // ================= Carte glass : float + spring tilt + clics =================
@@ -1021,8 +1139,10 @@ class Component extends DCLogic {
       onLeaveBack: () => gsap.to(logo, { scale: 1, duration: 0.4, ease: 'power2.out' })
     });
 
+    // Le bloc Normandy ouvre désormais en plein jour : le nav blanc y devenait
+    // illisible sur le ciel clair -> il bascule en verre clair dès cette section.
     ST.create({
-      trigger: '#realisations', start: 'top 70',
+      trigger: '#bp-wrap', start: 'top 70',
       onEnter: () => {
         gsap.to(nav, { backgroundColor: 'rgba(237,232,222,0.92)', color: '#17140F', duration: 0.35 });
         nav.style.backdropFilter = 'blur(14px)';
@@ -1060,8 +1180,11 @@ class Component extends DCLogic {
       });
     }
 
-    const mq = document.querySelector('[data-marquee]');
-    if (mq && !reduced) gsap.to(mq, { xPercent: -50, duration: 46, ease: 'none', repeat: -1 });
+    document.querySelectorAll('[data-marquee]').forEach((mq) => {
+      if (reduced) return;
+      const dur = parseFloat(mq.getAttribute('data-marquee')) || 46;
+      gsap.to(mq, { xPercent: -50, duration: dur, ease: 'none', repeat: -1 });
+    });
 
     if (window.matchMedia('(pointer: fine)').matches && !reduced) {
       document.querySelectorAll('[data-tilt-card]').forEach((card) => {
@@ -1128,9 +1251,10 @@ class Component extends DCLogic {
 
   _initBlueprintStatic() {
     this._initBlueprint();
+    this._initNormandyText(); // mouvement réduit : la timeline est posée à sa fin
     if (!this._bp) return;
     this._bp.active = true;
-    this._bpU = 0.85;
+    this._bpU = 0.88;
     this._tickBlueprint();
     this._bp.active = false;
   }
