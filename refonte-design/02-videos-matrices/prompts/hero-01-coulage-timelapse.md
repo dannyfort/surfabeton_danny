@@ -137,6 +137,112 @@ sur 15 s casse la lisibilité et risque de provoquer une coupe parasite.
 
 ---
 
+## Run 2026-07-26 — Seedance 2.0 Mini (Higgsfield, nouveau compte)
+
+Régénération avec les refs **DEF** (`Desktop/PROJETS/WEBSITE DESIGN /surfabeton /DEF/`) :
+`dmaged def.png` (first frame) → `magnific_base-image-img1-.png` (cible timelapse) →
+`def windows.png` (last frame, nouveau hangar : ponts roulants jaunes, racks orange).
+Modèle `seedance_2_0_mini`, 15 s, 720p, 16:9, audio natif, 37.5 crédits/vidéo.
+Prompt = PROMPT MASTER ci-dessus, description du plan large adaptée au nouveau hangar.
+
+- Take 1 : job `4809da25-9e1d-4cb8-b8ab-79b58e89f00d` → `outputs/hero-01-coulage-v2-take1.mp4`
+- Take 2 : job `3ccb7a46-101f-48f6-a393-3c81b0763286` → `outputs/hero-01-coulage-v2-take2.mp4`
+
+QA frames : first/last frames fidèles aux refs sur les deux takes ; take 1 pull-back
+plus haut/plus large à 10 s, take 2 reste plus près du sol.
+
+### v3 — format court 8 s + construction CGI (validé coût : 20 crédits)
+
+Itération demandée : 8 s max (15 s trop cher), et pendant le pull-back le hangar
+**se construit en fast-forward CGI** (colonnes, parpaings rangée par rangée, fermes
+de toit, ponts roulants, racks) pour finir verrouillé sur le plan large
+`def windows.png`. Timeline : macro fissuré 0–1 s → couli + cure 1–3 s →
+pull-back FPV + auto-construction 3–7 s → lock final 7–8 s.
+
+- Job `8a8c7855-17d2-4407-a0e9-83696a5e778d` → `outputs/hero-01-coulage-v3-8s.mp4`
+- Re-roll (même prompt) : job `dbeb8072-b6a1-4f71-9556-0fe7309272b6` →
+  `outputs/hero-01-coulage-v3-8s-take2.mp4` — coulée visible en jet avec ondulations
+  concentriques à 2,5 s (plus littérale), construction du hangar plus progressive
+  (structure nue à 5 s, ponts/racks arrivent en fin de pull-back).
+
+### ✅ Master EN LIGNE (2026-07-27) — `hf_20260727_180836_e3ad068c….mp4`
+
+Take v4 final validé par Daniel (généré côté UI Higgsfield, 8.04 s / 24 fps / 1280×720,
+sans piste audio) → installé tel quel (remux `-c copy +faststart`) dans
+`public/assets/hero-master.mp4` + posters régénérés (`poster-start.jpg` = frame 0,
+`poster-wide.jpg` = frame 7.5 s).
+
+Beats mesurés sur la matrice (grille de frames) et reportés dans `index.html` :
+
+| Marqueur | Ancienne master (7.67 s) | Nouvelle (8.04 s) | Rôle dans le site |
+|---|---|---|---|
+| `pourEnd` | 1.8 | **2.2** | fin de la coulée : les particules se calment, le zoom d'ouverture est fini |
+| `holdEnd` | — | **3.72** | fin d'intro auto-jouée ; 1re image où la caméra bouge vraiment |
+| `crashStart` | 3.1 | **4.05** | le pull-back devient violent → crash UI, seuil déclencheur du travelling |
+| `wideLock` | 5.0 | **6.9** | lock plan large ; boucle ping-pong 6.9 → 8.04 (truelle) |
+
+### 2026-07-28 — suppression du temps mort au premier scroll
+
+Mesure image par image (énergie de différence inter-frames) : **entre 2,2 s et 3,7 s la
+caméra ne bouge pas du tout** (≈ 0,2, soit le grain seul ; le mouvement démarre à 3,72 s
+et explose à 4,05 s). Or le scrub mappait `pourEnd → wideLock` linéairement : **les 32
+premiers % de la course hero (≈ 380 px) tombaient donc dans ce plan figé**, pendant que
+les particules Three.js, elles, reculaient dès le premier pixel. D'où la sensation de
+latence signalée par Daniel.
+
+Correctifs dans `index.html` :
+
+- `holdEnd = 3.72` : l'intro auto-jouée absorbe le segment figé et repose la vidéo pile
+  sur la première image du recul. Le scroll ne part plus jamais dans le vide.
+- `HERO_AMORCE = 0.16` : les 16 premiers % de la course (≈ 190 px) sont en **seek
+  direct**, sans lissage — la vidéo recule en synchro avec le doigt, de `holdEnd` à
+  `crashStart`. Au-delà du seuil, tout le travelling arrière part jusqu'à `wideLock`,
+  lissé (τ = 0,14 s ≈ l'ancien `scrub: 0.5`).
+- Le tween proxy GSAP est remplacé par un suivi maison dans `_tickVideo` : la bascule
+  amorce → travelling est continue, sans rattrapage à la couture.
+- Le crash UI (`c` de `_initExit`) tombe désormais **pile au seuil**, donc exactement au
+  beat `crashStart` de la vidéo.
+- Les particules reculent sur le **timecode vidéo** (`_proxy.t`) et non plus sur le
+  scroll brut : elles ne peuvent plus repartir en avance sur l'image de fond.
+- Le fluidificateur `_tickAssist` ne démarre qu'après le seuil (pendant l'amorce,
+  l'image appartient au doigt).
+
+### 2026-07-28 — ⚠️ le master n'avait JAMAIS été réencodé pour le scrub
+
+Audit de la latence signalée sur le dézoom. Cause dominante trouvée : le master avait été
+installé en **`-c copy` (remux seul)**, donc avec le GOP de Higgsfield —
+**2 keyframes en tout** (0 s et 4,25 s), soit un GOP de ~102 images. Chaque seek forçait
+le décodeur à repartir d'une keyframe et à décoder jusqu'à 100 images. Mesure : **~0,05 s
+de décodage par seek contre ~0,01 s sur `normandy-scrub.mp4`**, qui, lui, avait bien reçu
+la recette de scrub (GOP 6, documentée dans `04-normandy-3d/prompts/`).
+
+Réencodage appliqué — **même recette que Normandy** :
+
+```
+ffmpeg -i src.mp4 -an -c:v libx264 -profile:v high -preset slow -crf 19 \
+       -g 6 -keyint_min 6 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart out.mp4
+```
+
+Résultat : **33 keyframes** (une toutes les 0,25 s), 4,77 → 5,70 Mo (+20 %), PSNR 45,5 dB
+(transparent), **193 images / 8,0417 s inchangés → tous les marqueurs restent valides**.
+Source d'origine archivée : `outputs/hero-01-coulage-v4-8s.mp4`.
+
+> **Règle à retenir pour toute vidéo scrubbée au scroll** : un fichier destiné au seek se
+> réencode toujours en GOP court (6 images). Le remux `-c copy` suffit pour une vidéo
+> jouée linéairement, jamais pour une vidéo scrubbée. À vérifier systématiquement avec :
+> `ffprobe -select_streams v:0 -skip_frame nokey -show_entries frame=pts_time -of csv=p=0 fichier.mp4`
+
+Effet de bord corrigé au passage : la boucle ping-pong de fin (`_pp.dir === -1`) fait des
+**seeks arrière image par image** ; un seek arrière redécode toujours depuis la keyframe,
+donc il coûtait ~64 images par frame de rAF. Avec GOP 6 il en coûte ≤ 6.
+
+Pistes secondaires identifiées, NON appliquées (choix chorégraphiques à trancher) :
+`_tickAssist` qui scrolle la page tout seul à 500 px/s dès que la vélocité tombe sous 40 ;
+`lenis.stop()` de 900 ms en sortie de hero ; les deux vidéos en `preload="auto"` (12 Mo
+concurrents au premier chargement).
+
+---
+
 ## Déclinaisons à générer ensuite (même matrice)
 
 1. **Loop hero courte (4–5 s)** : segment couli → ciré seul, sans crash-grue

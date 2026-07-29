@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Surfabéton — Spécialiste du dallage industriel en Normandie</title>
-<meta name="description" content="Surfabéton conçoit et réalise vos sols industriels et dallages béton de grandes surfaces — usines, plateformes logistiques, entrepôts. QUALIBAT 2153, jusqu'à 155 m³/jour, chantiers jusqu'à 55 000 m². Normandie et national." />
+<title>Surfabéton — Dallage industriel haute planéité, Normandie &amp; national</title>
+<meta name="description" content="Surfabéton coule, lisse et polit vos sols industriels et dallages béton de grandes surfaces — usines, plateformes logistiques, entrepôts. QUALIBAT 2153, jusqu'à 155 m³/jour, chantiers jusqu'à 55 000 m². Normandie et national." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -12,7 +12,6 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
-  <script src="./normandy.js?v=31" defer></script>
   <style>
     html, body { margin: 0; padding: 0; background: #EDE8DE; }
     body { font-family: 'Hanken Grotesk', system-ui, sans-serif; color: #17140F; -webkit-font-smoothing: antialiased; }
@@ -36,9 +35,14 @@ html.lenis,html.lenis body{height:auto}
 @media (max-width:820px){
   .sb-desktop-card{display:none !important}
   .sb-mobile-only{display:block}
-  /* les deux cartouches bas du bloc Normandy se chevauchaient en portrait :
-     la fiche technique (droite) cède la place au libellé de phase (gauche) */
-  [data-nx-meta]{display:none !important}
+  /* le pied de cadre Normandy (phase + fiche technique) est piloté par le garde
+     JS _guardNormandy() : il masque la fiche puis le pied si le titre mord.
+     Ici on le remonte au-dessus du bouton devis fixe du mobile. */
+  [data-nx-foot]{bottom:104px !important}
+  /* nav : sous 820px les trois liens + le logo ne tiennent plus sur la ligne */
+  #nav-logo{font-size:16px !important}
+  #nav-bar{padding-left:14px !important;padding-right:14px !important}
+  #nav-bar a[data-nav-link]{font-size:10px;letter-spacing:0.08em}
 }
 .sb-hv-0:hover{ transform: translateY(-2px) !important; box-shadow: 0 16px 34px rgba(217,80,63,0.5) !important; }
 .sb-hv-1:hover{ transform: translateY(-3px) !important; box-shadow: 0 20px 44px rgba(217,80,63,0.55) !important; }
@@ -93,7 +97,7 @@ html.lenis,html.lenis body{height:auto}
     <div data-catch="" style="position: absolute; left: clamp(24px, 5vw, 92px); top: 34%; z-index: 4; width: min(600px, 46vw); color: #D9503F">
       <p style="font-family: 'Playfair Display', serif; font-weight: 800; font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1.06; letter-spacing: 0.006em; text-transform: uppercase; margin: 0; text-shadow: 0 2px 34px rgba(23,20,15,0.5)"><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">«</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">L</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">e</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">b</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">é</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">t</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">o</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">n</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">,</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">p</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">o</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">l</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">i</span> <br><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">c</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">o</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">m</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">m</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">e</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">u</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">n</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">m</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">i</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">r</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">o</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">i</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">r</span><span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">.</span> <span data-title-char="" style="display: inline-block; translate: none; rotate: none; scale: none; transform-origin: 50% 100%; filter: blur(0px); transform: translate(0px, 0px); opacity: 1;">»</span></p>
       <div style="height: 3px; width: 72px; background: #E89E8E; margin: 22px 0"></div>
-      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(246,241,231,0.9); line-height: 1.8; margin: 0">Dallage industriel haute planéité<br>— coulé, lissé, ciré.</p>
+      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(246,241,231,0.9); line-height: 1.8; margin: 0">Dallage industriel haute planéité<br>— coulé, lissé, poli miroir.</p>
     </div>
 
     
@@ -104,7 +108,7 @@ html.lenis,html.lenis body{height:auto}
               <div data-card-body="" style="position: relative; overflow: hidden; border-radius: 20px; background: rgba(32,27,21,0.5); backdrop-filter: blur(26px) saturate(1.3); -webkit-backdrop-filter: blur(26px) saturate(1.3); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 40px 80px rgba(23,20,15,0.42), 0 6px 24px rgba(23,20,15,0.25); padding: 26px 26px 22px">
                 <div data-card-shine="" style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, rgba(255,255,255,0) 35%, rgba(255,255,255,0.16) 46%, rgba(255,255,255,0) 58%); background-size: 220% 220%; background-position: 50% 50%"></div>
                 <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: #E89E8E; margin: 0 0 6px">— DEVIS</p>
-                <h3 style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 26px; color: #F6F1E7; margin: 0 0 18px">Votre devis en 24h</h3>
+                <h3 style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 26px; color: #F6F1E7; margin: 0 0 18px">Votre devis sous 24h</h3>
                 <form data-sb-form style="display: flex; flex-direction: column; gap: 12px">
                   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
                     <label style="display: flex; flex-direction: column; gap: 6px">
@@ -147,52 +151,59 @@ html.lenis,html.lenis body{height:auto}
     
 
     <div data-wide-ui="" style="position: absolute; left: 0; right: 0; bottom: 13vh; z-index: 4; text-align: center; opacity: 0; pointer-events: none">
-      <h1 style="font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2.3rem, 5vw, 4.6rem); letter-spacing: 0.002em; color: #F6F1E7; margin: 0 20px 26px; text-shadow: 0 2px 40px rgba(23,20,15,0.55)">25 ans de surfaces parfaites.</h1>
+      <h1 style="font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2.3rem, 5vw, 4.6rem); letter-spacing: 0.002em; color: #F6F1E7; margin: 0 20px 26px; text-shadow: 0 2px 40px rgba(23,20,15,0.55)">25 ans de sols industriels sans défaut.</h1>
       <button data-sb-devis-cta style="background: #D9503F; color: #FBF6EC; border: none; border-radius: 12px; padding: 16px 32px; font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; font-size: 17px; cursor: pointer; transition: transform 0.25s ease, box-shadow 0.25s ease; box-shadow: 0 14px 34px rgba(217,80,63,0.4)" class="sb-hv-1">Demander un devis</button>
     </div>
 
     <div data-scroll-hint="" style="position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 10px; color: rgba(242,237,227,0.78); pointer-events: none">
-      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em">SCROLL — DÉCOUVRIR LE CHANTIER</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em">SCROLL — ENTRER DANS LE CHANTIER</span>
       <span style="width: 1px; height: 34px; background: rgba(242,237,227,0.6); animation: sb-scrollline 2.2s ease-in-out infinite"></span>
     </div>
 
   </div>
 </div>
 
-<section id="bp-wrap" data-screen-label="Le Normandy 3D" style="position: relative; height: 280vh; background: #17140F">
+<section id="bp-wrap" data-screen-label="Le Normandy — ciel" style="position: relative; height: 280vh; background: #17140F">
   <div style="position: sticky; top: 0; height: 100vh; overflow: hidden">
-    <canvas id="bp-canvas" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
-    <!-- Textes écrits dans le ciel : plus de cartes, typographie + voile de contraste -->
-    <div data-nx-lead style="position: absolute; top: clamp(76px, 13vh, 132px); left: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none; max-width: min(440px, 80vw)">
-      <div data-nx-scrim style="position: absolute; left: -18%; top: -38%; width: 158%; height: 198%; background: radial-gradient(58% 52% at 28% 41%, rgba(250,247,240,0.66) 0%, rgba(250,247,240,0.3) 46%, rgba(250,247,240,0) 76%); -webkit-mask-image: radial-gradient(closest-side at 28% 41%, black 30%, transparent 97%); mask-image: radial-gradient(closest-side at 28% 41%, black 30%, transparent 97%); pointer-events: none"></div>
-      <div style="position: relative">
-        <p data-nx-kicker style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: #C2402F; margin: 0 0 14px">— CHANTIER RÉFÉRENCE SURFABÉTON</p>
-        <h2 style="margin: 0; font-weight: 400">
-          <span data-nx-l1 style="display: block; font-family: 'Playfair Display', serif; font-weight: 500; font-style: italic; font-size: clamp(1rem, 1.65vw, 1.42rem); letter-spacing: 0.012em; color: #332E27; margin: 0 0 2px">Rénovation du théâtre</span>
-          <span data-nx-l2 style="display: block; font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2.15rem, 4.3vw, 3.55rem); line-height: 0.96; letter-spacing: -0.012em; color: #14120E; filter: drop-shadow(0 3px 14px rgba(248,244,236,0.7)) drop-shadow(0 0 30px rgba(248,244,236,0.5))">Le Normandy</span>
-        </h2>
-        <div style="display: flex; align-items: center; gap: 12px; margin: 16px 0 0">
-          <span data-nx-rule style="display: block; height: 1px; width: 52px; background: #C2402F; transform-origin: left center"></span>
-          <span data-nx-city style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.24em; color: #4A443B">LE HAVRE</span>
-        </div>
-        <p data-nx-body style="font-family: 'Hanken Grotesk', sans-serif; font-size: clamp(12.5px, 1vw, 14.5px); line-height: 1.62; color: #3B362F; margin: 16px 0 0; max-width: 37ch">Joyau Art Déco de 1934 rouvert en novembre 2025 après cinq ans de chantier. Surfabéton a participé à cette rénovation.</p>
+    <video id="bp-video" src="assets/normandy-scrub.mp4" poster="assets/normandy-poster.jpg" preload="auto" muted="muted" playsinline="playsinline" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block"></video>
+    <!-- Étalonnage cinéma : dégradé bleu nuit ancré à gauche + vignette + grain.
+         Il creuse le ciel côté texte pour que la typo claire tienne sans carte. -->
+    <div data-nx-grade style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(112deg, rgba(9,20,34,0.55) 0%, rgba(9,20,34,0.30) 32%, rgba(9,20,34,0.08) 52%, rgba(9,20,34,0) 66%); pointer-events: none"></div>
+    <div style="position: absolute; inset: 0; z-index: 1; background: radial-gradient(120% 90% at 50% 42%, rgba(8,14,22,0) 58%, rgba(8,14,22,0.30) 100%); pointer-events: none"></div>
+    <div style="position: absolute; inset: 0; z-index: 1; opacity: 0.06; mix-blend-mode: overlay; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E&quot;); pointer-events: none"></div>
+
+    <!-- Écrit dans le ciel : typographie lumineuse, aucune carte -->
+    <div data-nx-lead style="position: absolute; top: clamp(88px, 12vh, 136px); left: clamp(22px, 6vw, 96px); right: clamp(22px, 6vw, 96px); z-index: 2; pointer-events: none">
+      <p data-nx-kicker style="font-family: 'IBM Plex Mono', monospace; font-size: clamp(10px, 2.6vw, 11.5px); font-weight: 500; letter-spacing: clamp(0.15em, 0.55vw, 0.24em); color: rgba(249,245,236,0.75); margin: 0 0 clamp(18px, 2.6vh, 30px); text-shadow: 0 1px 3px rgba(8,16,26,0.35)">003 — CHANTIER RÉFÉRENCE SURFABÉTON</p>
+      <h2 style="margin: 0; font-weight: 400">
+        <span data-nx-l1 style="display: block; font-family: 'Playfair Display', serif; font-weight: 500; font-style: italic; font-size: clamp(1.25rem, 2vw, 1.7rem); letter-spacing: 0.014em; color: rgba(247,243,234,0.92); margin: 0 0 clamp(6px, 1vh, 12px); text-shadow: 0 1px 4px rgba(8,16,26,0.3), 0 10px 40px rgba(8,16,26,0.3)">Restauration du théâtre</span>
+        <span data-nx-l2 style="display: block; font-family: 'Playfair Display', serif; font-weight: 600; font-size: clamp(2.9rem, 6.2vw, 6rem); line-height: 0.98; letter-spacing: -0.012em; color: #FBF8F0; white-space: nowrap; text-shadow: 0 2px 6px rgba(8,16,26,0.22), 0 22px 80px rgba(8,16,26,0.38)">Le Normandy</span>
+      </h2>
+      <div style="display: flex; align-items: center; gap: 14px; margin: clamp(20px, 3vh, 32px) 0 0">
+        <span data-nx-rule style="display: block; height: 1px; width: 64px; background: #D9503F; transform-origin: left center"></span>
+        <span data-nx-city style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.32em; color: rgba(249,245,236,0.85); text-shadow: 0 1px 3px rgba(8,16,26,0.35)">LE HAVRE</span>
       </div>
+      <p data-nx-body style="font-family: 'Hanken Grotesk', sans-serif; font-size: clamp(15.5px, 1.15vw, 17.5px); font-weight: 400; line-height: 1.66; color: rgba(250,246,238,0.92); margin: clamp(16px, 2.4vh, 26px) 0 0; max-width: 36ch; text-shadow: 0 1px 4px rgba(8,16,26,0.3), 0 12px 44px rgba(8,16,26,0.25); text-wrap: pretty">Joyau Art Déco de 1934, rendu à la scène en novembre 2025 après cinq ans de chantier. Surfabéton a participé à cette renaissance.</p>
     </div>
-    <div data-nx-phase style="position: absolute; bottom: clamp(38px, 9vh, 88px); left: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none">
-      <div style="position: relative; min-width: 356px; min-height: 16px; padding: 10px 16px; border-radius: 12px; background: rgba(250,247,240,0.72); backdrop-filter: blur(12px) saturate(1.15); -webkit-backdrop-filter: blur(12px) saturate(1.15); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 10px 26px rgba(23,20,15,0.10); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #2A251E">
-        <span data-bp-phase="0" style="position: absolute; top: 10px; left: 16px; white-space: nowrap">01 — LE SOCLE : GRANITO &amp; MOSAÏQUE</span>
-        <span data-bp-phase="1" style="position: absolute; top: 10px; left: 16px; white-space: nowrap; opacity: 0">02 — LA FAÇADE ART DÉCO S'ÉLÈVE</span>
-        <span data-bp-phase="2" style="position: absolute; top: 10px; left: 16px; white-space: nowrap; opacity: 0">03 — LE NORMANDY SE MET EN COULEUR</span>
+
+    <!-- Bas de cadre : rouleau de phase + barre de progression + fiche technique -->
+    <div data-nx-foot style="position: absolute; left: clamp(22px, 6vw, 96px); bottom: clamp(28px, 6vh, 64px); z-index: 2; pointer-events: none">
+      <div data-nx-phase style="position: relative; height: 18px; overflow: hidden; font-family: 'IBM Plex Mono', monospace; font-size: clamp(11px, 2.9vw, 12.5px); font-weight: 600; letter-spacing: clamp(0.12em, 0.5vw, 0.2em); color: rgba(249,245,236,0.92); text-shadow: 0 1px 3px rgba(8,16,26,0.4)">
+        <!-- fantôme : les libellés sont en position absolue et ne dimensionnent
+             donc pas la boîte — sans lui, le plus long est rogné par overflow -->
+        <span aria-hidden="true" style="visibility: hidden; white-space: nowrap">03 — LE NORMANDY ROUVRE SES PORTES</span>
+        <span data-bp-phase="0" style="position: absolute; top: 0; left: 0; white-space: nowrap; will-change: transform"><span style="color: #E89E8E">01</span> — LE SOL : COULÉ, TIRÉ, LISSÉ</span>
+        <span data-bp-phase="1" style="position: absolute; top: 0; left: 0; white-space: nowrap; will-change: transform"><span style="color: #E89E8E">02</span> — LA SALLE SE REMET EN PLACE</span>
+        <span data-bp-phase="2" style="position: absolute; top: 0; left: 0; white-space: nowrap; will-change: transform"><span style="color: #E89E8E">03</span> — LE NORMANDY ROUVRE SES PORTES</span>
       </div>
-    </div>
-    <div data-nx-meta style="position: absolute; bottom: clamp(38px, 9vh, 88px); right: clamp(20px, 6vw, 90px); z-index: 2; pointer-events: none; text-align: right">
-      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #3B362F; margin: 0; line-height: 1.9; padding: 9px 15px; border-radius: 12px; background: rgba(250,247,240,0.72); backdrop-filter: blur(12px) saturate(1.15); -webkit-backdrop-filter: blur(12px) saturate(1.15); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 10px 26px rgba(23,20,15,0.10)">LE NORMANDY — THÉÂTRE ART DÉCO, 1934<br>ROUVERT EN NOVEMBRE 2025 · 789 PLACES</p>
+      <div data-nx-progress style="height: 1px; width: min(280px, 30vw); background: rgba(249,245,236,0.22); margin: 14px 0 16px; position: relative"><span data-nx-progressbar style="position: absolute; inset: 0; background: #D9503F; transform-origin: left center; transform: scaleX(0)"></span></div>
+      <p data-nx-meta style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; color: rgba(249,245,236,0.58); margin: 0; line-height: 2; text-shadow: 0 1px 3px rgba(8,16,26,0.4)">LE NORMANDY — THÉÂTRE ART DÉCO, 1934<br>RÉOUVERTURE NOVEMBRE 2025 · 789 PLACES</p>
     </div>
   </div>
 </section>
 
 <section id="presse-normandy" style="background: #17140F; padding: 30px 0 44px; position: relative">
-  <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: rgba(247,243,234,0.55); margin: 0 0 22px; text-align: center">ILS EN ONT PARLÉ — LA RENAISSANCE DU NORMANDY DANS LA PRESSE</p>
+  <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.18em; color: rgba(247,243,234,0.55); margin: 0 0 22px; text-align: center">LA RÉOUVERTURE DU NORMANDY, VUE PAR LA PRESSE</p>
   <div style="overflow: hidden; mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent)">
     <div data-marquee="44" style="display: flex; gap: clamp(44px, 5.5vw, 88px); width: max-content; align-items: center">
         <div style="display: flex; gap: clamp(44px, 5.5vw, 88px); align-items: center">
@@ -230,17 +241,17 @@ html.lenis,html.lenis body{height:auto}
       <div data-reveal="" data-tilt-card="" style="border-radius: 20px; background: rgba(255,255,255,0.32); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 24px 50px rgba(23,20,15,0.14); padding: clamp(26px, 3vw, 44px)">
         <p style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: clamp(2.1rem, 3.8vw, 3.4rem); line-height: 1; color: #17140F; margin: 0"><span data-count="55000" data-format="fr">55 000</span> <span style="font-size: 0.38em; font-weight: 600; color: #3F3A33">m²</span></p>
         <div data-underline="" style="height: 6px; width: 78px; background: #E89E8E; margin: 16px 0 18px; transform-origin: left center"></div>
-        <p style="font-size: 15px; line-height: 1.55; color: #3F3A33; margin: 0; max-width: 32ch">Plus grand chantier réalisé — usine Siemens Gamesa, Le Havre</p>
+        <p style="font-size: 15px; line-height: 1.55; color: #3F3A33; margin: 0; max-width: 32ch">Notre plus grand chantier — usine Siemens Gamesa, Le Havre</p>
       </div>
       <div data-reveal="" data-tilt-card="" style="border-radius: 20px; background: rgba(255,255,255,0.32); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 24px 50px rgba(23,20,15,0.14); padding: clamp(26px, 3vw, 44px)">
         <p style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: clamp(2.1rem, 3.8vw, 3.4rem); line-height: 1; color: #17140F; margin: 0"><span data-count="155">155</span> <span style="font-size: 0.38em; font-weight: 600; color: #3F3A33">m³/jour</span></p>
         <div data-underline="" style="height: 6px; width: 78px; background: #E89E8E; margin: 16px 0 18px; transform-origin: left center"></div>
-        <p style="font-size: 15px; line-height: 1.55; color: #3F3A33; margin: 0; max-width: 32ch">De béton mis en œuvre — 311 m³ coulés en 2 jours</p>
+        <p style="font-size: 15px; line-height: 1.55; color: #3F3A33; margin: 0; max-width: 32ch">De béton mis en œuvre — 311 m³ coulés en deux jours</p>
       </div>
       <div data-reveal="" data-tilt-card="" style="border-radius: 20px; background: rgba(255,255,255,0.32); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 24px 50px rgba(23,20,15,0.14); padding: clamp(26px, 3vw, 44px)">
         <p style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: clamp(2.1rem, 3.8vw, 3.4rem); line-height: 1; color: #17140F; margin: 0">+<span data-count="25">25</span> <span style="font-size: 0.38em; font-weight: 600; color: #3F3A33">ans</span></p>
         <div data-underline="" style="height: 6px; width: 78px; background: #E89E8E; margin: 16px 0 18px; transform-origin: left center"></div>
-        <p style="font-size: 15px; line-height: 1.55; color: #3F3A33; margin: 0; max-width: 32ch">D'expérience métier au service de vos surfaces</p>
+        <p style="font-size: 15px; line-height: 1.55; color: #3F3A33; margin: 0; max-width: 32ch">D'expérience sur le béton, chantier après chantier</p>
       </div>
       <div data-reveal="" data-tilt-card="" style="border-radius: 20px; background: rgba(255,255,255,0.32); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 24px 50px rgba(23,20,15,0.14); padding: clamp(26px, 3vw, 44px)">
         <p style="font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.2; color: #17140F; margin: 8px 0 0">QUALIBAT 2153</p>
@@ -250,7 +261,7 @@ html.lenis,html.lenis body{height:auto}
     </div>
 
     <div data-reveal="" style="margin-top: clamp(44px, 6vw, 72px); border-top: 1px solid rgba(23,20,15,0.12); padding-top: 28px">
-      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #3F3A33; margin: 0 0 20px; text-align: center">ILS NOUS FONT CONFIANCE — REJOIGNEZ LES DIZAINES D'ENTREPRISES QUI FONT CONFIANCE À SURFABÉTON</p>
+      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #3F3A33; margin: 0 0 20px; text-align: center">ILS NOUS CONFIENT LEURS SOLS</p>
       <div style="overflow: hidden; mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent)">
         <div data-marquee="" style="display: flex; gap: clamp(48px, 6vw, 96px); width: max-content; align-items: center">
           <div style="display: flex; gap: clamp(48px, 6vw, 96px); align-items: center">
@@ -280,7 +291,7 @@ html.lenis,html.lenis body{height:auto}
     <div style="text-align: center; margin-bottom: clamp(40px, 5vw, 70px)">
       <p data-reveal="" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #D9503F; margin: 0">— CŒUR DE MÉTIER</p>
       <h2 data-reveal="" style="font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(2.2rem, 4.8vw, 3.8rem); line-height: 1.05; color: #17140F; margin: 14px 0 14px">Nos expertises</h2>
-      <p data-reveal="" style="font-size: 16px; color: #3F3A33; margin: 0">Parcourez notre vaste offre de services pour en savoir plus.</p>
+      <p data-reveal="" style="font-size: 16px; color: #3F3A33; margin: 0; max-width: 46ch; margin-inline: auto">Du dallage de 55 000 m² au béton ciré poli miroir — la même exigence de planéité.</p>
     </div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(16px, 2vw, 26px)">
       <div data-reveal="" data-tilt-card="" style="position: relative; overflow: hidden; border-radius: 20px; height: clamp(320px, 34vw, 460px); box-shadow: 0 28px 60px rgba(23,20,15,0.18); cursor: pointer">
@@ -292,7 +303,7 @@ html.lenis,html.lenis body{height:auto}
       <div data-reveal="" data-tilt-card="" style="position: relative; overflow: hidden; border-radius: 20px; height: clamp(320px, 34vw, 460px); box-shadow: 0 28px 60px rgba(23,20,15,0.18); cursor: pointer">
         <img src="assets/exp-sols.jpg" alt="Sols industriels grande surface" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
         <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23,20,15,0.08) 40%, rgba(23,20,15,0.68) 100%)"></div>
-        <p style="position: absolute; top: 20px; left: 22px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #E89E8E; margin: 0">02 — PHARE</p>
+        <p style="position: absolute; top: 20px; left: 22px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: #E89E8E; margin: 0">02 — INDUSTRIEL</p>
         <h3 style="position: absolute; bottom: 22px; left: 22px; right: 22px; font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(1.6rem, 2.4vw, 2.2rem); color: #F6F1E7; margin: 0; line-height: 1.1">Sols industriels</h3>
       </div>
       <div data-reveal="" data-tilt-card="" style="position: relative; overflow: hidden; border-radius: 20px; height: clamp(320px, 34vw, 460px); box-shadow: 0 28px 60px rgba(23,20,15,0.18); cursor: pointer">
@@ -342,7 +353,7 @@ html.lenis,html.lenis body{height:auto}
   
   <div data-sb-sheet class="sb-mobile-only" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 70; transform: translateY(112%); transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1); background: rgba(30,26,20,0.92); backdrop-filter: blur(22px) saturate(1.3); -webkit-backdrop-filter: blur(22px) saturate(1.3); border: 1px solid rgba(255,255,255,0.22); border-bottom: none; border-radius: 22px 22px 0 0; padding: 22px 20px 30px">
     <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px">
-      <h3 style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 24px; color: #F6F1E7; margin: 0">Votre devis en 24h</h3>
+      <h3 style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 24px; color: #F6F1E7; margin: 0">Votre devis sous 24h</h3>
       <button data-sb-close-sheet style="background: none; border: none; color: rgba(247,243,234,0.7); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; cursor: pointer; padding: 6px">FERMER ✕</button>
     </div>
     <form data-sb-form style="display: flex; flex-direction: column; gap: 12px">
@@ -381,8 +392,15 @@ class Component extends DCLogic {
     formNote: ''
   };
 
-  // ⚠️ Timecodes calés à la main sur la vidéo master (7.67 s / 30 fps)
-  MARKERS = { pourEnd: 1.8, crashStart: 3.1, wideLock: 5.0 };
+  // ⚠️ Timecodes calés à la main sur la vidéo master (8.04 s / 24 fps — matrice v4 « construction CGI »)
+  // pourEnd : fin coulée + cure, sol ciré plein cadre · holdEnd : dernière image AVANT que la caméra
+  // ne bouge (2,2 → 3,72 s = plan strictement figé, mesuré à la frame) · crashStart : le pull-back FPV
+  // devient violent · wideLock : caméra verrouillée sur le plan large (boucle ping-pong wideLock → fin)
+  MARKERS = { pourEnd: 2.2, holdEnd: 3.72, crashStart: 4.05, wideLock: 6.9 };
+
+  // Part du scroll hero consommée par l'AMORCE : le doigt pilote la vidéo image par
+  // image jusqu'à ce seuil, qui déclenche ensuite tout le travelling arrière.
+  HERO_AMORCE = 0.16;
 
   renderVals() {
     const reduced = this.state.reduced;
@@ -421,12 +439,12 @@ class Component extends DCLogic {
     if (window.gsap && this._tickFn) window.gsap.ticker.remove(this._tickFn);
     if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(t => t.kill());
     if (this._fx && this._fx.renderer) this._fx.renderer.dispose();
-    if (this._bp && this._bp.renderer) this._bp.renderer.dispose();
+    if (this._nxResize) window.removeEventListener('resize', this._nxResize);
   }
 
   _waitLibs() {
     return new Promise((resolve) => {
-      const check = () => (window.gsap && window.ScrollTrigger && window.Lenis && window.THREE && window.SB_NORMANDY) ? resolve() : setTimeout(check, 60);
+      const check = () => (window.gsap && window.ScrollTrigger && window.Lenis && window.THREE) ? resolve() : setTimeout(check, 60);
       check();
     });
   }
@@ -485,7 +503,7 @@ class Component extends DCLogic {
     this._phase = 'intro';
     const tryPlay = () => {
       const p = v.play();
-      if (p && p.catch) p.catch(() => { v.currentTime = M.pourEnd; this._phase = 'hold'; });
+      if (p && p.catch) p.catch(() => { v.currentTime = M.holdEnd; this._phase = 'hold'; });
     };
     if (v.readyState >= 2) tryPlay();
     else v.addEventListener('canplay', tryPlay, { once: true });
@@ -540,8 +558,10 @@ class Component extends DCLogic {
   _initExit() {
     const gsap = window.gsap;
     const tl = this._exitTl = gsap.timeline({ paused: true });
-    const c = (this.MARKERS.crashStart - this.MARKERS.pourEnd) / (this.MARKERS.wideLock - this.MARKERS.pourEnd); // ≈ 0.41
-    // Pendant le polissage : le titre et la carte respirent à peine
+    // Le crash UI part PILE au seuil déclencheur : à cet instant la vidéo est sur
+    // `crashStart`, donc le titre et la carte partent avec la caméra, pas avant.
+    const c = this.HERO_AMORCE;
+    // Pendant l'amorce : le titre et la carte respirent à peine
     tl.to('[data-catch]', { scale: 1.02, duration: c, ease: 'none', transformOrigin: 'center center' }, 0);
     // Crash-dézoom : ils se couchent contre la dalle et fuient très vite avec elle
     tl.to('[data-catch]', {
@@ -557,46 +577,56 @@ class Component extends DCLogic {
     }, c);
     tl.to('[data-card-outer]', { autoAlpha: 0, duration: 0.07, ease: 'none' }, c + 0.22);
     tl.to('[data-scroll-hint]', { autoAlpha: 0, duration: 0.1, ease: 'none' }, c);
-    // Plan large : H1 + CTA
-    tl.fromTo('[data-wide-ui]', { autoAlpha: 0, y: 44 }, { autoAlpha: 1, y: 0, duration: 0.16, ease: 'power2.out' }, 0.84);
+    // Plan large : H1 + CTA — posés au même timecode qu'avant (≈ 6,15 s)
+    tl.fromTo('[data-wide-ui]', { autoAlpha: 0, y: 44 }, { autoAlpha: 1, y: 0, duration: 0.16, ease: 'power2.out' }, this._pAt(6.15));
   }
 
-  // ================= Dézoom RE-SYNC au scroll (pin + scrub) =================
+  // ================= Dézoom RE-SYNC au scroll (deux régimes, sans temps mort) ===============
+  // 1. AMORCE (p ≤ HERO_AMORCE) : seek DIRECT, la vidéo recule image par image en
+  //    synchro avec le doigt dès le premier fragment de scroll.
+  // 2. Passé le seuil : tout le travelling arrière s'enclenche jusqu'à `wideLock`,
+  //    lissé (≈ l'ancien scrub 0.5) et calé sur les beats du timecode vidéo.
+  // Le proxy n'est plus tweené par GSAP : il est suivi à la main dans _tickVideo,
+  // ce qui rend la bascule amorce → travelling continue (aucun rattrapage à la couture).
   _initScrub() {
-    const gsap = window.gsap;
-    const M = this.MARKERS;
-    const proxy = this._proxy = { t: M.pourEnd };
     const self = this;
+    this._proxy = { t: this.MARKERS.holdEnd };
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#hero-wrap',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 0.5,
-        invalidateOnRefresh: true,
-        onUpdate(st) { self._onScrub(st.progress); }
-      }
+    this._heroST = window.ScrollTrigger.create({
+      trigger: '#hero-wrap',
+      start: 'top top',
+      end: 'bottom bottom',
+      onUpdate(st) { self._onScrub(st.progress); }
     });
-    this._heroST = tl.scrollTrigger;
+  }
 
-    tl.to(proxy, {
-      t: M.wideLock, duration: 1, ease: 'none',
-      onUpdate: () => {
-        const v = self._v;
-        if (!v || self._pp.active) return;
-        if (self._heroST && self._heroST.progress > 0.015 && (self._phase === 'intro' || self._phase === 'hold')) {
-          // le scroll prend la main sur l'ouverture
-          if (self._introTl) self._introTl.progress(1);
-          v.pause();
-          self._phase = 'scrub';
-        }
-        if (self._phase === 'scrub' && v.readyState >= 1 && Math.abs(v.currentTime - proxy.t) > 0.02) v.currentTime = proxy.t;
-      }
-    }, 0);
+  // Scroll (0→1) → timecode vidéo. Le segment 2,2 s → 3,72 s (béton en cure, caméra
+  // strictement immobile) est consommé par l'intro auto-jouée : le scroll démarre donc
+  // sur la première image où la caméra recule VRAIMENT — plus de course à vide.
+  _tcAt(p) {
+    const M = this.MARKERS, A = this.HERO_AMORCE;
+    return p <= A
+      ? M.holdEnd + (M.crashStart - M.holdEnd) * (p / A)
+      : M.crashStart + (M.wideLock - M.crashStart) * ((p - A) / (1 - A));
+  }
+
+  // Inverse de _tcAt : où tombe un timecode donné sur la course de scroll
+  _pAt(tc) {
+    const M = this.MARKERS, A = this.HERO_AMORCE;
+    return tc <= M.crashStart
+      ? A * (tc - M.holdEnd) / (M.crashStart - M.holdEnd)
+      : A + (1 - A) * (tc - M.crashStart) / (M.wideLock - M.crashStart);
   }
 
   _onScrub(p) {
+    // Le tout premier fragment de scroll prend la main sur l'ouverture : avant, il
+    // fallait franchir 1,5 % de la course pour que la vidéo daigne bouger.
+    if (p > 0.0015 && (this._phase === 'intro' || this._phase === 'hold')) {
+      if (this._introTl) this._introTl.progress(1);
+      if (this._v) this._v.pause();
+      this._proxy.t = this._tcAt(p);
+      this._phase = 'scrub';
+    }
     this._exitTl.progress(p);
     if (this._wideUi) this._wideUi.style.pointerEvents = p > 0.9 ? 'auto' : 'none';
 
@@ -625,12 +655,13 @@ class Component extends DCLogic {
   }
 
   // Fluidificateur : si le scroll stagne au milieu du dézoom, on avance en douceur (pas d'effet diaporama)
+  // Il ne démarre qu'APRÈS le seuil : pendant l'amorce, l'image appartient au doigt.
   _tickAssist(dtMs) {
     const st = this._heroST;
     if (!st || !this._lenis || this._endLocked) return;
     if (this._phase !== 'scrub') return;
     const p = st.progress;
-    if (p <= 0.03 || p >= 0.985) return;
+    if (p <= this.HERO_AMORCE + 0.02 || p >= 0.985) return;
     const vel = this._lenis.velocity || 0;
     if (Math.abs(vel) > 2) this._assistDir = vel > 0 ? 1 : -1;
     if (this._assistDir !== 1) return; // n'assiste que vers le bas
@@ -654,10 +685,20 @@ class Component extends DCLogic {
     this._parY += ((-this._mouse.y * 10) * this._parAmp - this._parY) * Math.min(1, dt * 4);
     window.gsap.set(v, { scale: 1.045 + zoom, x: this._parX, y: this._parY, transformOrigin: '50% 50%' });
 
-    if (this._phase === 'intro' && v.currentTime >= M.pourEnd) {
+    // L'intro auto-jouée va jusqu'à `holdEnd` : elle absorbe le segment figé de la
+    // cure et repose la vidéo pile sur la première image du recul de caméra.
+    if (this._phase === 'intro' && v.currentTime >= M.holdEnd) {
       v.pause();
-      v.currentTime = M.pourEnd;
+      v.currentTime = M.holdEnd;
       this._phase = 'hold';
+    }
+
+    // Timecode piloté par le scroll : 1:1 avec le doigt sur l'amorce, lissé ensuite.
+    if (this._phase === 'scrub' && !this._pp.active) {
+      const target = this._tcAt(p0);
+      const follow = p0 > this.HERO_AMORCE ? 1 - Math.exp(-dt / 0.14) : 1;
+      this._proxy.t += (target - this._proxy.t) * follow;
+      if (v.readyState >= 1 && Math.abs(v.currentTime - this._proxy.t) > 0.02) v.currentTime = this._proxy.t;
     }
 
     if (this._pp.active) {
@@ -768,14 +809,17 @@ class Component extends DCLogic {
     // secousses pendant le coulage → dissipation dans l'air → flottement stable
     fx.calm += ((pouring ? 0 : 1) - fx.calm) * dt * 0.4;
     const agit = 1 - fx.calm;
-    // on s'éloigne du béton : les particules rapetissent avec le dézoom
-    const ep = this._exitTl ? this._exitTl.progress() : 0;
-    fx.camera.position.z = 10 + ep * 9;
+    // On s'éloigne du béton : la caméra des particules recule sur le TIMECODE de la
+    // vidéo, pas sur le scroll brut — elles ne peuvent donc plus reculer toutes seules
+    // pendant que l'image de fond, elle, reste plantée.
+    const tcU = Math.min(1, Math.max(0, ((this._proxy ? this._proxy.t : M.holdEnd) - M.holdEnd) / (M.wideLock - M.holdEnd)));
+    fx.camera.position.z = 10 + tcU * 9;
     const mx = this._mouse.px, my = this._mouse.py;
 
-    // Alpha global : plein pendant l'ouverture, fondu pendant le crash (piloté par le scrub)
+    // Alpha global : plein pendant l'ouverture, fondu une fois le travelling lancé
     const exP = this._exitTl ? this._exitTl.progress() : 0;
-    const target = Math.max(0, 1 - Math.max(0, (exP - 0.41) / 0.45) * 1.4);
+    const f0 = this.HERO_AMORCE + 0.02, f1 = this._pAt(5.65);
+    const target = Math.max(0, 1 - Math.max(0, (exP - f0) / (f1 - f0)));
     fx.alpha += (target - fx.alpha) * 0.12;
 
     const stir = (arr, velArr, n, drift, swirlAmp) => {
@@ -842,101 +886,21 @@ class Component extends DCLogic {
     fx.renderer.render(fx.scene, fx.camera);
   }
 
-  // ================= Blueprint 3D : le Normandy se construit =================
-  // Théâtre Le Normandy (1934) — chantier référence Surfabéton, reconstruit
-  // procéduralement (voir refonte-design/04-normandy-3d/). public/normandy.js
+  // ============ Le Normandy : vidéo photoréale scrubbée au scroll ============
+  // Théâtre Le Normandy (1934) — chantier référence Surfabéton. Le bloc Three.js
+  // procédural est remplacé par la génération photoréaliste Seedance ancrée sur
+  // stills Seedream (pipeline refonte-design/04-normandy-3d/, journal dans
+  // prompts/normandy-01-photoreal-restyle.md). Dernière frame : façade cadrée à
+  // droite, ciel dégagé à gauche pour la colonne de texte.
   _initBlueprint() {
-    const THREE = window.THREE;
-    const canvas = document.getElementById('bp-canvas');
-    if (!canvas || !window.SB_NORMANDY) return;
+    const video = document.getElementById('bp-video');
+    if (!video) return;
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, this.state.isMobile ? 1.3 : 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.96;
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(48, 1, 0.1, 200);
-
-    // Sol de rue + grille technique (signature graphique, discrète au jour)
-    // Sol photoréaliste (rue, pelouses, arbres, particules) — il ÉCLOT au scroll
-    const ground = window.SB_NORMANDY.createGround(THREE, { isMobile: this.state.isMobile });
-    scene.add(ground.group);
-
-    // Trait laser du périmètre — footprint du Normandy
-    const edge = new THREE.LineLoop(
-      new THREE.BufferGeometry().setFromPoints([
-        new THREE.Vector3(-10.6, 0.05, 2.4), new THREE.Vector3(10.6, 0.05, 2.4),
-        new THREE.Vector3(10.6, 0.05, -16.4), new THREE.Vector3(-10.6, 0.05, -16.4)
-      ]),
-      new THREE.LineBasicMaterial({ color: 0xD9503F, transparent: true, opacity: 0.95 })
-    );
-    scene.add(edge);
-
-    // Le théâtre procédural + son API de construction build(u)
-    const normandy = window.SB_NORMANDY.create(THREE, { quality: this.state.isMobile ? 'lite' : 'high' });
-    scene.add(normandy.group);
-
-    // Ciel + lever de soleil + rig lumière (aube chaude → matin accueillant)
-    const sky = window.SB_NORMANDY.createSky(THREE, scene, { isMobile: this.state.isMobile });
-    scene.add(sky.group);
-    sky.update(0, camera, 0);
-    ground.update(0, 0, camera);
-
-    // Travelling arrière (backward dolly) : première image SERRÉE et BASSE sur la
-    // colonnade en train de monter — le cadre est plein de chantier, pas de ciel.
-    // La caméra recule et s'élève pendant la construction, jusqu'au plan final
-    // façade cadrée à droite (colonne de texte libre à gauche).
-    const camPath = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0.9, 2.7, 9.6),
-      new THREE.Vector3(1.5, 6.6, 21.0),
-      new THREE.Vector3(2.0, 7.4, 30.0)
-    ]);
-    const lookPath = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-0.7, 3.1, 0),
-      new THREE.Vector3(-3.0, 8.05, 0),
-      new THREE.Vector3(-4.6, 8.05, 0)
-    ]);
-
-    this._bp = { renderer, scene, camera, normandy, sky, ground, camPath, lookPath, edge,
-      active: false, lastU: -1 };
-    // survol : parallaxe caméra sur desktop uniquement (jamais en mouvement réduit)
-    this._bpParallax = window.matchMedia('(pointer: fine)').matches && !this.state.reduced;
-    window.__bp = this._bp; window.__cmp = this; // debug/QA : accès console au bloc 3D
-
-    const resize = () => {
-      // le parent peut mesurer 0x0 avant layout (pane cachée, course de fontes) :
-      // sans garde, aspect=NaN contamine le chemin caméra définitivement.
-      const w = canvas.parentElement.clientWidth || window.innerWidth || 1280;
-      const h = canvas.parentElement.clientHeight || window.innerHeight || 720;
-      renderer.setSize(w, h, false);
-      camera.aspect = w / h;
-      // façade cadrée à droite : il faut loger 10,6 m de demi-façade + le décalage
-      // de visée, sinon elle déborde. On recule d'autant sur écran étroit.
-      const narrow = camera.aspect < 1.05;
-      const aim = narrow ? -1.2 : -4.6;               // visée décalée (portrait : recentrée)
-      // 11,6 m = demi-largeur RÉELLE façade pylônes compris (mesurée sur la bbox) ;
-      // à 10,6 le bord droit du théâtre était rogné en portrait
-      const halfW = 11.6 + Math.abs(aim);
-      const need = 2.0 + halfW / (Math.tan(camera.fov * Math.PI / 360) * camera.aspect);
-      camPath.points[2].set(narrow ? 0 : 2.0, 7.4, Math.max(26.0, need));
-      lookPath.points[2].set(aim, 8.05, 0);
-      // le dolly recule sur un axe quasi droit : les points amont suivent le plan final
-      // (en portrait on démarre un peu plus loin, le cadre étroit rogne la colonnade)
-      camPath.points[0].set(narrow ? 0 : 0.9, 2.7, narrow ? 12.5 : 9.6);
-      // point milieu reculé + visée haute : c'est là que la masse haute pousse le
-      // plus vite, sans ça le sommet du théâtre sortait du cadre entre 20 et 60 %
-      camPath.points[1].set(narrow ? 0 : 1.5, 6.6, narrow ? 23.0 : 21.0);
-      lookPath.points[0].set(narrow ? 0 : -0.7, 3.1, 0);
-      lookPath.points[1].set(narrow ? -0.6 : -3.0, 8.05, 0);
-      camera.updateProjectionMatrix();
-      this._bp.lastU = -1;
-    };
-    this._bp.resize = resize;
-    resize();
-    window.addEventListener('resize', resize);
+    this._bp = { video, dur: 0, active: false, lastU: -1 };
+    const meta = () => { this._bp.dur = video.duration || 0; };
+    if (video.readyState >= 1) meta();
+    else video.addEventListener('loadedmetadata', meta, { once: true });
+    window.__bp = this._bp; window.__cmp = this; // debug/QA : accès console au bloc
 
     const self = this;
     window.ScrollTrigger.create({
@@ -958,70 +922,76 @@ class Component extends DCLogic {
     const bp = this._bp;
     if (!bp || !bp.active) return;
     const u = this._bpU;
-    const now = performance.now();
     bp.lastU = u;
 
-    // Textes : entrée quand le scrub passe 0,12, et REVERSE au scroll remontant.
-    // (Déclenché ici et non dans onUpdate : la timeline peut ne pas exister encore.)
-    if (this._nxTl && !this.state.reduced) {
-      const on = u > 0.12;
-      if (on !== this._nxOn) {
-        this._nxOn = on;
-        if (on) {
-          if (!this._nxEverPlayed && u > 0.5) this._nxTl.progress(1); // reload en milieu de page
-          else this._nxTl.play();
+    // Textes en trois temps, calés sur la carte des temps du film (8 s) :
+    //  A (u>0,06)  kicker + titre + pied — pendant le COULAGE, encre claire
+    //              lisible sur la salle sombre (le grade protège la gauche) ;
+    //  B (u>0,40)  corps de texte — la salle se rhabille, fond encore sombre ;
+    //  CIEL (u≥0,72 / retour <0,66)  la caméra est dehors : bascule encre
+    //              foncée + le grade s'efface — la composition complète FINIT
+    //              posée sur le ciel bleu (plus aucun fondu de sortie).
+    if (this._nxTlA && !this.state.reduced) {
+      const onA = u > 0.06;
+      if (onA !== this._nxOnA) {
+        this._nxOnA = onA;
+        this._nxMask('hidden'); // les masques reprennent la main pendant le roulement
+        if (onA) {
+          // reload en milieu de page : progress(1) ne déclenche pas onComplete
+          if (!this._nxEverPlayed && u > 0.5) { this._nxTlA.progress(1); this._nxMask('visible'); }
+          else this._nxTlA.play();
           this._nxEverPlayed = true;
         } else {
-          this._nxTl.reverse();
+          this._nxTlA.reverse();
         }
       }
+      const onB = u > 0.40;
+      if (onB !== this._nxOnB) {
+        this._nxOnB = onB;
+        if (onB) this._nxTlB.play();
+        else this._nxTlB.reverse();
+      }
+      const sky = u >= 0.72 ? true : (u < 0.66 ? false : this._nxSky);
+      if (sky !== this._nxSky) { this._nxSky = sky; this._nxSetSky(sky, false); }
     }
 
-    const ease = (x) => 1 - Math.pow(1 - Math.max(0, Math.min(1, x)), 3);
+    // La vidéo est scrubbée comme le hero : seek direct avec zone morte de 20 ms.
+    // (-0,05 s : ne jamais viser la toute dernière frame — certains décodeurs y figent.)
+    const v = bp.video;
+    if (!bp.dur && v.readyState >= 1) bp.dur = v.duration || 0;
+    if (bp.dur) {
+      const t = Math.max(0, Math.min(1, u)) * (bp.dur - 0.05);
+      if (Math.abs(v.currentTime - t) > 0.02) v.currentTime = t;
+    }
 
-    // Auto-guérison : si l'init a eu lieu sans layout (0x0), le chemin est NaN
-    if (!isFinite(bp.camPath.points[2].z) && bp.resize) bp.resize();
+    const gsap = window.gsap;
 
-    const p = Math.max(0, Math.min(1, u));
-    // Construction DÉJÀ EN COURS à la première image : le rez-de-chaussée est monté
-    // (u=0 -> 34 % de chantier) et les volumes hauts s'élèvent dès les premiers pixels
-    // de scroll. Sans ce plancher, la section ouvrait sur un terrain vide.
-    const bu = 0.34 + 0.66 * p;
-    // Le travelling arrière court sur TOUT le scroll, mais en ease-out : il recule
-    // VITE au début pour rester devant le bâtiment qui pousse, puis décélère dans
-    // le plan final. (Sans cet ease, la masse haute débordait du cadre vers u=0,25.)
-    const cu = 1 - Math.pow(1 - p, 2.2);
-    bp.camera.position.copy(bp.camPath.getPoint(cu));
-    // Parallaxe au survol : la caméra glisse vers la souris et garde la visée
-    // -> orbital 3D marqué autour du bâtiment (pointer fine uniquement).
-    // Amplitude plus faible au départ (de près, quelques degrés suffisent) puis
-    // franche dans le plan final.
-    if (!this._bpPar) this._bpPar = { x: 0, y: 0 };
-    const pAmp = this._bpParallax ? (0.7 + 1.5 * cu) : 0;
-    this._bpPar.x += ((this._mouse.x * pAmp) - this._bpPar.x) * 0.065;
-    this._bpPar.y += ((-this._mouse.y * pAmp * 0.7) - this._bpPar.y) * 0.065;
-    bp.camera.position.x += this._bpPar.x;
-    bp.camera.position.y += this._bpPar.y;
-    bp.camera.lookAt(bp.lookPath.getPoint(cu));
+    // Barre de progression du chantier + parallaxe douce. PAS de fondu de
+    // sortie : la composition doit FINIR posée sur le ciel bleu du plan final
+    // (la dérive s'arrête à u=0,85 pour que le bloc se fige avec la caméra).
+    const nx = this._nx;
+    if (nx) {
+      gsap.set(nx.bar, { scaleX: Math.max(0, Math.min(1, u)) });
+      if (!this.state.reduced) gsap.set(nx.lead, { y: Math.min(u, 0.85) * -24 });
+    }
 
-    // Trait laser : trace le périmètre dès l'entrée de section
-    bp.edge.material.opacity = 0.95 * ease(u / 0.06) * (1 - 0.55 * ease((u - 0.75) / 0.2));
-
-    // Le théâtre se construit (socle → volumes → enseigne & lumière)
-    bp.normandy.build(bu);
-    // Ciel de jour et terrain posés dès u=0 ; la lumière se dégage pendant le chantier
-    bp.sky.update(u, bp.camera, now);
-    bp.ground.update(u, now, bp.camera);
-
-    // Labels de phase (sur le scroll : le chantier démarre déjà entamé)
-    const phase = u < 0.26 ? 0 : (u < 0.62 ? 1 : 2);
-    document.querySelectorAll('[data-bp-phase]').forEach((el) => {
-      const on = parseInt(el.getAttribute('data-bp-phase'), 10) === phase;
-      el.style.opacity = on ? '1' : '0';
-      el.style.transition = 'opacity 0.4s ease';
-    });
-
-    bp.renderer.render(bp.scene, bp.camera);
+    // Compteur de phase : rouleau typographique (masque overflow + GSAP).
+    // Seul le libellé visible roule vers le haut ; les libellés parqués sont
+    // reposés hors champ SANS animation (sinon ils traverseraient le masque).
+    // Seuils calés sur le film : coulage jusqu'à ~u 0,40, salle habillée puis
+    // sortie jusqu'à ~0,68, extérieur ensuite.
+    const phase = u < 0.40 ? 0 : (u < 0.68 ? 1 : 2);
+    if (phase !== this._bpPhase) {
+      this._bpPhase = phase;
+      document.querySelectorAll('[data-bp-phase]').forEach((el) => {
+        const on = parseInt(el.getAttribute('data-bp-phase'), 10) === phase;
+        if (this.state.reduced) { gsap.set(el, { yPercent: on ? 0 : 140 }); return; }
+        const yp = gsap.getProperty(el, 'yPercent');
+        if (on) gsap.fromTo(el, { yPercent: 140 }, { yPercent: 0, duration: 0.65, ease: 'power3.out', overwrite: true });
+        else if (Math.abs(yp) < 70) gsap.to(el, { yPercent: -140, duration: 0.45, ease: 'power2.in', overwrite: true });
+        else gsap.set(el, { yPercent: 140 });
+      });
+    }
   }
 
   // ============ Textes Normandy : entrée GSAP mot à mot (masques + 3D) ============
@@ -1039,6 +1009,7 @@ class Component extends DCLogic {
       const inners = [];
       words.forEach((w, i) => {
         const mask = document.createElement('span');
+        mask.setAttribute('data-nx-mask', '');
         mask.style.cssText = 'display: inline-block; overflow: hidden; vertical-align: bottom; padding: 0 0.06em 0.12em';
         const inner = document.createElement('span');
         inner.style.cssText = 'display: inline-block; will-change: transform';
@@ -1051,31 +1022,120 @@ class Component extends DCLogic {
       return inners;
     };
 
+    // les libellés de phase démarrent parqués sous le masque (le tick roule le bon)
+    gsap.set(root.querySelectorAll('[data-bp-phase]'), { yPercent: 140 });
+
     const kicker = q('[data-nx-kicker]');
     const w1 = splitWords(q('[data-nx-l1]'));
     const w2 = splitWords(q('[data-nx-l2]'));
     const rule = q('[data-nx-rule]');
     const city = q('[data-nx-city]');
     const body = q('[data-nx-body]');
-    const scrim = q('[data-nx-scrim]');
-    const phase = q('[data-nx-phase]');
-    const meta = q('[data-nx-meta]');
+    const grade = q('[data-nx-grade]');
+    const lead = q('[data-nx-lead]');
+    const foot = q('[data-nx-foot]');
 
-    const tl = gsap.timeline({ paused: true, defaults: { ease: 'expo.out' } });
-    tl.from(scrim, { opacity: 0, scale: 0.86, duration: 1.5, ease: 'power2.out' }, 0)
-      .from(kicker, { opacity: 0, x: -26, letterSpacing: '0.5em', duration: 1.0 }, 0.05)
-      .from(w1, { yPercent: 120, opacity: 0, duration: 0.95, stagger: 0.055 }, 0.14)
+    this._nx = { lead, foot, bar: q('[data-nx-progressbar]'), meta: q('[data-nx-meta]') };
+
+    // Les masques mot à mot rognent le halo (text-shadow 80px) du titre et
+    // dessinent un rectangle sombre autour de chaque mot. Ils ne servent qu'au
+    // roulement d'entrée : on les rouvre dès que le rideau est joué.
+    const masks = root.querySelectorAll('[data-nx-mask]');
+    this._nxMask = (v) => masks.forEach((m) => { m.style.overflow = v; });
+
+    // Garde petits viewports : si le bloc titre mord sur le pied de cadre, on
+    // masque d'abord la fiche technique, puis le pied entier.
+    this._guardNormandy();
+    this._nxResize = () => this._guardNormandy();
+    window.addEventListener('resize', this._nxResize);
+
+    // Rideau typographique, façon générique de film
+    // DEUX temps : A = kicker + titre + pied pendant le coulage ; B = corps de
+    // texte quand la salle se rhabille. La bascule chromatique « ciel » est
+    // gérée à part (_nxSetSky, déclenchée par _tickBlueprint à u≥0,72).
+    const tlA = gsap.timeline({ paused: true, defaults: { ease: 'expo.out' } });
+    tlA.from(grade, { opacity: 0, duration: 1.8, ease: 'power2.out' }, 0)
+      .from(kicker, { opacity: 0, y: 14, letterSpacing: '0.6em', duration: 1.2 }, 0.1)
+      .from(w1, { yPercent: 120, duration: 0.9, stagger: 0.05 }, 0.25)
       // les mots du nom basculent depuis le sol, en perspective
-      .from(w2, { yPercent: 118, rotationX: -72, opacity: 0, duration: 1.25, stagger: 0.085,
-        transformOrigin: '50% 100% -24px', transformPerspective: 900 }, 0.26)
-      .from(rule, { scaleX: 0, duration: 0.9, ease: 'power3.inOut' }, 0.72)
-      .from(city, { opacity: 0, x: -16, filter: 'blur(7px)', duration: 0.85 }, 0.78)
-      .from(body, { opacity: 0, y: 22, filter: 'blur(9px)', duration: 1.0 }, 0.84)
-      .from([phase, meta], { opacity: 0, y: 16, duration: 0.9, stagger: 0.1 }, 0.9);
+      .from(w2, { yPercent: 112, rotationX: -55, opacity: 0, filter: 'blur(10px)', duration: 1.5, stagger: 0.12,
+        transformOrigin: '50% 100% -30px', transformPerspective: 1100 }, 0.38)
+      .from(rule, { scaleX: 0, duration: 1.0, ease: 'power3.inOut' }, 0.95)
+      .from(city, { opacity: 0, x: -18, filter: 'blur(6px)', duration: 0.9 }, 1.0)
+      .from(foot.children, { opacity: 0, y: 18, duration: 0.9, stagger: 0.12 }, 1.1);
+    tlA.eventCallback('onComplete', () => this._nxMask('visible'));
 
-    this._nxTl = tl;
-    window.__nx = { tl: tl, words: w2 }; // debug/QA
-    if (this.state.reduced) { tl.progress(1); this._nxOn = true; this._nxEverPlayed = true; }
+    const tlB = gsap.timeline({ paused: true, defaults: { ease: 'expo.out' } });
+    tlB.from(body, { opacity: 0, y: 24, filter: 'blur(8px)', duration: 1.1 }, 0);
+
+    // Bascule chromatique : encre claire tant que la caméra est dans la salle
+    // sombre, encre foncée dès que le plan final s'ouvre sur le ciel (le grade
+    // bleu nuit s'efface en même temps). Réversible au scroll remontant.
+    const l1El = q('[data-nx-l1]');
+    const l2El = q('[data-nx-l2]');
+    const phaseWrap = q('[data-nx-phase]');
+    const phaseNums = root.querySelectorAll('[data-bp-phase] > span');
+    const track = q('[data-nx-progress]');
+    const metaEl = this._nx.meta;
+    const PAL_CHANTIER = {
+      kicker: { color: 'rgba(249,245,236,0.75)', textShadow: '0 1px 3px rgba(8,16,26,0.35)' },
+      l1: { color: 'rgba(247,243,234,0.92)', textShadow: '0 1px 4px rgba(8,16,26,0.3), 0 10px 40px rgba(8,16,26,0.3)' },
+      l2: { color: '#FBF8F0', textShadow: '0 2px 6px rgba(8,16,26,0.22), 0 22px 80px rgba(8,16,26,0.38)' },
+      city: { color: 'rgba(249,245,236,0.85)', textShadow: '0 1px 3px rgba(8,16,26,0.35)' },
+      body: { color: 'rgba(250,246,238,0.92)', textShadow: '0 1px 4px rgba(8,16,26,0.3), 0 12px 44px rgba(8,16,26,0.25)' },
+      phase: { color: 'rgba(249,245,236,0.92)', textShadow: '0 1px 3px rgba(8,16,26,0.4)' },
+      num: { color: '#E89E8E' },
+      meta: { color: 'rgba(249,245,236,0.58)', textShadow: '0 1px 3px rgba(8,16,26,0.4)' },
+      track: { backgroundColor: 'rgba(249,245,236,0.22)' },
+      grade: { opacity: 1 }
+    };
+    // Sortie du bâtiment : la LUMIÈRE change, pas le registre. Le design de
+    // référence garde l'encre claire du début à la fin — on se contente
+    // d'ouvrir le ciel (le grade s'allège sans disparaître : il protège encore
+    // la colonne de texte) et de passer l'accent du saumon au rouge de marque,
+    // qui tient mieux sur le bleu. Aucun halo clair sur le titre, et le pied de
+    // cadre gagne une ombre large : il tombe sur le parvis, pas sur le ciel.
+    // NB : garder le MÊME nombre de couches d'ombre que PAL_CHANTIER — GSAP
+    // interpole les text-shadow couche par couche.
+    const PAL_CIEL = {
+      kicker: { color: 'rgba(250,246,238,0.82)', textShadow: '0 1px 4px rgba(8,16,26,0.5)' },
+      l1: { color: 'rgba(249,245,236,0.95)', textShadow: '0 1px 4px rgba(8,16,26,0.42), 0 10px 40px rgba(8,16,26,0.34)' },
+      l2: { color: '#FFFCF6', textShadow: '0 2px 8px rgba(8,16,26,0.32), 0 22px 80px rgba(8,16,26,0.45)' },
+      city: { color: 'rgba(250,246,238,0.9)', textShadow: '0 1px 4px rgba(8,16,26,0.5)' },
+      body: { color: 'rgba(251,248,241,0.95)', textShadow: '0 1px 4px rgba(8,16,26,0.42), 0 12px 44px rgba(8,16,26,0.32)' },
+      phase: { color: '#FFFCF6', textShadow: '0 1px 12px rgba(8,16,26,0.88)' },
+      num: { color: '#D9503F' },
+      meta: { color: 'rgba(252,250,245,0.94)', textShadow: '0 1px 12px rgba(8,16,26,0.88)' },
+      track: { backgroundColor: 'rgba(250,246,238,0.42)' },
+      grade: { opacity: 0.55 }
+    };
+    this._nxSky = false;
+    this._nxSetSky = (sky, instant) => {
+      const P = sky ? PAL_CIEL : PAL_CHANTIER;
+      const d = instant ? 0 : 0.55;
+      const T = (el, props) => { if (el) gsap.to(el, { ...props, duration: d, ease: 'power2.inOut', overwrite: 'auto' }); };
+      T(kicker, P.kicker); T(l1El, P.l1); T(l2El, P.l2); T(city, P.city); T(body, P.body);
+      T(phaseWrap, P.phase); T(metaEl, P.meta); T(track, P.track); T(grade, P.grade);
+      phaseNums.forEach((n) => T(n, P.num));
+    };
+
+    this._nxTlA = tlA;
+    this._nxTlB = tlB;
+    window.__nx = { tlA, tlB, words: w2 }; // debug/QA
+    if (this.state.reduced) {
+      tlA.progress(1); tlB.progress(1); this._nxMask('visible');
+      this._nxOnA = this._nxOnB = true; this._nxEverPlayed = true;
+      this._nxSky = true; this._nxSetSky(true, true); // statique = plan final ciel
+    }
+  }
+
+  _guardNormandy() {
+    const nx = this._nx;
+    if (!nx || !nx.foot || !nx.lead) return;
+    nx.meta.style.display = ''; nx.foot.style.display = '';
+    const gap = () => nx.foot.getBoundingClientRect().top - nx.lead.getBoundingClientRect().bottom;
+    if (gap() < 24) nx.meta.style.display = 'none';
+    if (gap() < 12) nx.foot.style.display = 'none';
   }
 
   // ================= Carte glass : float + spring tilt + clics =================
@@ -1139,14 +1199,15 @@ class Component extends DCLogic {
       onLeaveBack: () => gsap.to(logo, { scale: 1, duration: 0.4, ease: 'power2.out' })
     });
 
-    // Le bloc Normandy ouvre désormais en plein jour : le nav blanc y devenait
-    // illisible sur le ciel clair -> il bascule en verre clair dès cette section.
+    // Le bloc Normandy est étalonné cinéma (bleu nuit ancré à gauche, typo
+    // claire) : le nav passe en verre sombre dès cette section — lisible sur le
+    // ciel clair côté droit comme sur le dégradé côté texte.
     ST.create({
       trigger: '#bp-wrap', start: 'top 70',
       onEnter: () => {
-        gsap.to(nav, { backgroundColor: 'rgba(237,232,222,0.92)', color: '#17140F', duration: 0.35 });
-        nav.style.backdropFilter = 'blur(14px)';
-        nav.style.webkitBackdropFilter = 'blur(14px)';
+        gsap.to(nav, { backgroundColor: 'rgba(16,22,31,0.55)', color: '#F2EDE3', duration: 0.35 });
+        nav.style.backdropFilter = 'blur(16px) saturate(1.2)';
+        nav.style.webkitBackdropFilter = 'blur(16px) saturate(1.2)';
       },
       onLeaveBack: () => {
         gsap.to(nav, { backgroundColor: 'rgba(237,232,222,0)', color: '#F2EDE3', duration: 0.35 });
@@ -1253,10 +1314,15 @@ class Component extends DCLogic {
     this._initBlueprint();
     this._initNormandyText(); // mouvement réduit : la timeline est posée à sa fin
     if (!this._bp) return;
-    this._bp.active = true;
-    this._bpU = 0.88;
-    this._tickBlueprint();
-    this._bp.active = false;
+    // la vidéo se pose sur son plan final (métadonnées parfois asynchrones)
+    const fin = () => {
+      this._bp.active = true;
+      this._bpU = 0.88;
+      this._tickBlueprint();
+      this._bp.active = false;
+    };
+    if (this._bp.video.readyState >= 1) fin();
+    else this._bp.video.addEventListener('loadedmetadata', fin, { once: true });
   }
 
   // ================= Form / CTA =================
