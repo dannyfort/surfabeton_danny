@@ -19,6 +19,12 @@ artistique et assets.
     `.dc.html` Claude Design
   - `IMPLEMENTATION.md` — détail de la conversion, assets, vérif, mise en prod
   - `imported/` — sources extraites + `build.cjs` (transformeur reproductible)
+- `04-normandy-3d/` — previz Three.js du bloc Normandy (outil interne ; en prod
+  le bloc est la vidéo scrubbée `assets/normandy-scrub.mp4`)
+- `05-remix-acreage-ui/` — refonte UI v2 « premium/cinématique »
+  - `prompt-ui-remix-acreage.md` — prompt Claude Design : remix du template
+    « Acreage » adapté à la palette Surfabéton et au moteur de scrub existant
+  - `ref-acreage/` — code du template de référence (zip Bolt, sans gifs/lock)
 
 ## Pipeline vidéo matrice
 
